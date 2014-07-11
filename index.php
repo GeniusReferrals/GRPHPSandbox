@@ -1,7 +1,7 @@
 <?php
-//include 'models/patient_model.php';
-//$patient_model = new patient_model();
-//$patients = $patient_model->list_all(20);
+include './api.php';
+$api = new api();
+$arrAdvocate = $api->getAdvocates();
 ?>
 
 <!DOCTYPE html>
@@ -122,19 +122,23 @@
                         <tr>
                             <th>Name</th>
                             <th>Last name</th>
+                            <th>Email</th>
                             <th>Account</th>
                             <th>Campaign</th>
                             <th>Creation date</th>
                             <th>Actions</th>
                         </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>Last name</td>
-                            <td>Account</td>
-                            <td>Campaign</td>
-                            <td>Creation date</td>
-                            <td>Actions</td>
-                        </tr>
+                        <?php foreach ($arrAdvocate as $objAdvocate) { ?>
+                            <tr>
+                                <td><?php echo $objAdvocate->name ?></td>
+                                <td><?php echo $objAdvocate->lastname ?></td>
+                                <td><?php echo $objAdvocate->email ?></td>
+                                <td><?php echo $objAdvocate->email ?></td>
+                                <td><?php echo $objAdvocate->_campaign_contract->name ?></td>
+                                <td><?php echo date('M d, Y',strtotime($objAdvocate->created)) ?></td>
+                                <td>Actions</td>
+                            </tr>
+                        <?php } ?>
                     </table>
                 </div>
             </div>

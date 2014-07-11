@@ -1,0 +1,6 @@
+/vendor/composer/
+/vendor/devster/
+/vendor/genius-api-php-client/
+/vendor/guzzle/
+/vendor/symfony/
+/vendor/autoload.php
