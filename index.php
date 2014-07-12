@@ -36,18 +36,18 @@ $api = new manage_advocate_api();
 
             <div class="jumbotron clearfix">
                 <div class="header"><p>Make your search using this criteria</p></div>
-                <form class="form-horizontal" role="form">
+                <form class="form-horizontal" role="form" id="form_seach_advocate">
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="inputName" class="col-sm-4 control-label">Name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputLastname" class="col-sm-4 control-label">Last name</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="inputLastname" placeholder="Last name">
+                                <input type="text" class="form-control" id="inputLastname" name="inputLastname" placeholder="Last name">
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@ $api = new manage_advocate_api();
                         <div class="form-group">
                             <label for="inputEmail" class="col-sm-4 control-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email">
                             </div>
                         </div>
                         <div style="text-align: right;">

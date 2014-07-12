@@ -14,27 +14,27 @@
                 </div>
                 <div class="col-xs-12" style="margin-bottom: 15px;">
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://">
+                        <a href="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'facebook-like'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'facebook-like'} : ''?>">
                             <img src="public/images/social/facebook.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://">
+                        <a href="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'twitter-post'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'twitter-post'} : ''?>">
                             <img src="public/images/social/twitter.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://">
+                        <a href="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'google-1'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'google-1'} : ''?>">
                             <img src="public/images/social/googleplus_red.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://">
+                        <a href="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'linkedin-post'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'linkedin-post'} : ''?>">
                             <img src="public/images/social/linkedin.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://">
+                        <a href="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'pin-it'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'pin-it'} : ''?>">
                             <img src="public/images/social/pinterest.png" class="img-rounded">
                         </a>
                     </div>
@@ -101,7 +101,7 @@
                     <p style="display: inline;"><strong>Share your personal URL</strong></p>
                 </div>
                 <div class="col-xs-12" style="margin-bottom: 15px;">
-                    <input id="personal_url" class="form-control" type="text" name="personal_url" value="https://">
+                    <input id="personal_url" class="form-control" type="text" name="personal_url" value="https://<?php isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'} : ''?>">
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
                     <p style="display: inline;"><strong>Print this QR code</strong></p>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <img src="">
+                    <img src="uploads/qrcode.png">
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <p><strong>Use this QR code to refer our service on:</strong></p>

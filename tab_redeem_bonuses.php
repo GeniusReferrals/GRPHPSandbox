@@ -54,11 +54,11 @@
                     <div class="panel-heading" style="line-height: 2">
                         <div style="height: 94px;">
                             <h5><strong>Redeemable amount:</strong></h5>
-                            <h3 style="color: #5CB85C;"><strong>12</strong></h3>
+                            <h3 style="color: #5CB85C;"><strong><?php isset($objAdvocate->unclaimed_balance) ? $objAdvocate->unclaimed_balance : ''?></strong></h3>
                         </div>
                         <div style="height: 93px;">
                             <h5><strong>Redeemed amount:</strong></h5>
-                            <h3 style="color: #D9534F;"><strong>12</strong></h3>
+                            <h3 style="color: #D9534F;"><strong><?php isset($objAdvocate->claimed_balance) ? $objAdvocate->claimed_balance : ''?></strong></h3>
                         </div>
                     </div>
                 </div>
@@ -79,16 +79,16 @@
                         <th>Type</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr style="border-bottom: #DDDDDD;">
-                        <td>Redeemed on</td>
-                        <td>Amount</td>
-                        <td>Details</td>
-                        <td>Referred advocate</td>
-                        <td>Status</td>
-                        <td>Type</td>
+                <?php //foreach ($arrRedemptionRequests as $objRedemptionRequests) { ?>
+                    <tr>
+                        <td><?php //echo date('M d, Y', strtotime($objRedemptionRequests->created))?></td>
+                        <td><?php //echo $objRedemptionRequests->amount ?></td>
+                        <td>Referral</td>
+                        <td><?php //echo $objRedemptionRequests->_advocate->name ?></td>
+                        <td><?php //echo $objRedemptionRequests->request_status_slug ?></td>
+                        <td><?php //echo $objRedemptionRequests->request_action_slug ?></td>
                     </tr>
-                </tbody>
+                <?php //} ?>
             </table>
         </div>
     </div>

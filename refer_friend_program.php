@@ -70,19 +70,6 @@ $api = new refer_friend_program_api();
                         </div>
                     </div>
 
-                    <!--<input type="hidden" id="data" 
-                           data-amcharts-images="{{ asset("bundles/frontend/js/amcharts/images/")}}" 
-                           data-loader-url="{{ asset("bundles/frontend/images/loader2.gif") }}" 
-                           data-base-url="{{ app.request.getBaseURL() }}"/>
-                    <input type="hidden" id="averages_share_daily_participation" data-averages-share="{{averages_share_daily_participation}}"/>
-                    <input type="hidden" id="totals_share_daily_participation" data-totals-share="{{totals_share_daily_participation}}"/>
-                    <input type="hidden" id="averages_click_daily_participation" data-averages-click="{{averages_click_daily_participation}}"/>
-                    <input type="hidden" id="totals_click_daily_participation" data-totals-click="{{totals_click_daily_participation}}"/>
-                    <input type="hidden" id="averages_daily_participation" data-averages-participation="{{averages_daily_participation}}"/>
-                    <input type="hidden" id="totals_daily_participation" data-totals-participation="{{totals_daily_participation}}"/>
-                    <input type="hidden" id="averages_bonuses_daily_given" data-averages-bonuses="{{averages_bonuses_daily_given}}"/>
-                    <input type="hidden" id="totals_bonuses_daily_given" data-totals-bonuses="{{totals_bonuses_daily_given}}"/>-->
-
                     <div class="modal fade" id="paypalAccountModal" tabindex="-1" role="dialog" aria-labelledby="paypalAccountLabel" aria-hidden="true"></div>
                     <div class="modal fade" id="newPaypalAccountModal" tabindex="-1" role="dialog" aria-labelledby="newPaypalAccountLabel" aria-hidden="true"></div>
                 </div>

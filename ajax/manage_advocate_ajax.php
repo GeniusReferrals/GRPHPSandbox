@@ -71,35 +71,108 @@ class manage_advocate_ajax {
         }
     }
 
-    public function searchAdvocates() {
+    public function searchAdvocates($data) {
 
-        $strName = $data['name'];
-        $strLastName = $data['last_name'];
-        $strEmail = $data['email'];
-
-        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 20, 'name::'+$strName+'|lastname::'+$strLastName+'|email::'+$strEmail+'');
+        if (!empty($data['name'])) {
+            $arrFilter[] = "name::" . $data['name'];
+        }
+        if (!empty($data['lastname'])) {
+            $arrFilter[] = "lastname::" . $data['last_name'];
+        }
+        if (!empty($data['email'])) {
+            $arrFilter[] = "email::" . $data['email'];
+        }
+        if (!empty($arrFilter)) {
+            $filters = implode('|', $arrFilter);
+        }
+        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 20, $filters);
         $arrAdvocate = json_decode($arrAdvocate);
         return $arrAdvocate->data->results;
     }
 
-    /**
-     * this helper function allows other ajax methods
-     * to know whether they have been passed all required post params
-     *
-     * @author Daniel Walker <daniel.walker@assistrx.com>
-     * @since  5/15/13
-     * @param  array $expected the keys required to be passed
-     * @param  array $data the post data
-     * @throws exception If a required key is not found in the data
-     * @return void
-     */
-    protected function expects($expected, $data) {
-        foreach ($expected as $variable_name) {
-            if (!array_key_exists($variable_name, $data)) {
-                throw new Exception("Error - you must pass {$variable_name} in \$_POST['data']");
-            }
-        }
-    }
+//    public function createReferral($data) {
+//
+//        //loading parameter from session
+//        $strGRAdvocateReferrerToken = $data['strGRAdvocateReferrerToken'];
+//        $strGRCampaignSlug = $data['strGRCampaignSlug'];
+//        $strGRReferralOriginSlug = $data['strGRReferralOriginSlug'];
+//
+//        try {
+//            //preparing the data to be sent on the request
+//            $arrReferral = array("referral" => array(
+//                    "referred_advocate_token" => $strGRAdvocateToken,
+//                    "referral_origin_slug" => $strGRCampaignSlug,
+//                    "campaign_slug" => $strGRReferralOriginSlug,
+//                    "http_referer" => $_SERVER['HTTP_REFERER']
+//            ));
+//            $this->objGeniusReferralsAPIClient->postReferral('genius-referrals', $strGRAdvocateReferrerToken, $arrReferral);
+//            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+//
+//            if ($intResponseCode == '201') {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        } catch (Exception $exc) {
+//            echo $exc->getMessage();
+//        }
+//    }
+
+//    public function processBonus($data) {
+//
+//        try {
+//            //preparing the data to be sent on the request
+//            $arrReferral = array("bonus" => array(
+//                    "advocate_token" => $data['advocate_token'],
+//                    "reference" => $data['reference'],
+//                    "amount_of_payments" => $data['amount_payments'],
+//                    "payment_amount" => $data['payment_amount']
+//            ));
+//
+//            //trying to give a bonus to the advocate's referrer
+//            $strResponse = $this->objGeniusReferralsAPIClient->postBonuses('genius-referrals', $arrReferral);
+//            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+//
+//            if ($intResponseCode == '201') {
+//                // bonus given to the advocate's referrer
+//                return true;
+//            } else {
+//                // there is not need to give a bonus to the advocate's referrer
+//                return false;
+//            }
+//        } catch (Exception $exc) {
+//
+//            echo $exc->getMessage();
+//        }
+//    }
+
+//    public function checkupBonus($data) {
+//
+//        try {
+//            //preparing the data to be sent on the request
+//            $arrReferral = array("bonus" => array(
+//                    "advocate_token" => $data['advocate_token'],
+//                    "reference" => $data['reference'],
+//                    "amount_of_payments" => $data['amount_payments'],
+//                    "payment_amount" => $data['payment_amount']
+//            ));
+//
+//            //trying to give a bonus to the advocate's referrer
+//            $strResponse = $this->objGeniusReferralsAPIClient->getBonusesCheckup('genius_referrals', $arrReferral);
+//            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+//
+//            if ($intResponseCode == '200') {
+//                // bonus given to the advocate's referrer
+//                return true;
+//            } else {
+//                // there is not need to give a bonus to the advocate's referrer
+//                return false;
+//            }
+//        } catch (Exception $exc) {
+//
+//            echo $exc->getMessage();
+//        }
+//    }
 
     protected function success($data) {
         // use the global response object
