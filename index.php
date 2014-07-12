@@ -1,7 +1,7 @@
 <?php
-include './api.php';
-$api = new api();
-$arrAdvocate = $api->getAdvocates();
+include './api/manage_advocate_api.php';
+$api = new manage_advocate_api();
+//$arrAdvocate = $api->createAdvocates();
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ $arrAdvocate = $api->getAdvocates();
                             </div>
                         </div>
                         <div style="text-align: right;">
-                            <button id="search_user" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+                            <button id="search_advocate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
                         </div>
                     </div>
                 </form>
@@ -77,48 +77,36 @@ $arrAdvocate = $api->getAdvocates();
                         <p>New Advocate</p>
                         <button type="button" class="close" id="btn_close_advocate">&times;</button>
                     </div>
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" id="new_advocate_form" method="POST">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label for="name" class="col-sm-4 control-label">Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="last_name" class="col-sm-4 control-label">Last name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="last_name" placeholder="Last name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="col-sm-4 control-label">Email</label>
-                                <div class="col-sm-8">
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name">
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
-                                <label for="payout_threshold" class="col-sm-4 control-label">Payout threshold</label>
+                                <label for="email" class="col-sm-4 control-label">Email</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="payout_threshold" placeholder="Payout threshold">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="currency" class="col-sm-4 control-label">Currency</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="currency" placeholder="Currency">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                 </div>
                             </div>
                             <div style="text-align: right;">
-                                <input class="btn btn-primary" type="submit" value="Submit" id="btn1_new_advocate">
+                                <input class="btn btn-primary" type="button" value="Submit" id="btn1_new_advocate">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-bordered" id="table_advocate">
                         <tr>
                             <th>Name</th>
                             <th>Last name</th>
@@ -128,17 +116,17 @@ $arrAdvocate = $api->getAdvocates();
                             <th>Creation date</th>
                             <th>Actions</th>
                         </tr>
-                        <?php foreach ($arrAdvocate as $objAdvocate) { ?>
-                            <tr>
-                                <td><?php echo $objAdvocate->name ?></td>
-                                <td><?php echo $objAdvocate->lastname ?></td>
-                                <td><?php echo $objAdvocate->email ?></td>
-                                <td><?php echo $objAdvocate->email ?></td>
-                                <td><?php echo $objAdvocate->_campaign_contract->name ?></td>
-                                <td><?php echo date('M d, Y',strtotime($objAdvocate->created)) ?></td>
-                                <td>Actions</td>
-                            </tr>
-                        <?php } ?>
+                        <?php //foreach ($arrAdvocate as $objAdvocate) { ?>
+                        <tr>
+                            <td><?php //echo $objAdvocate->name  ?></td>
+                            <td><?php //echo $objAdvocate->lastname  ?></td>
+                            <td><?php //echo $objAdvocate->email  ?></td>
+                            <td><?php //echo $objAdvocate->email  ?></td>
+                            <td><?php //echo $objAdvocate->_campaign_contract->name  ?></td>
+                            <td><?php //echo date('M d, Y',strtotime($objAdvocate->created))  ?></td>
+                            <td>Actions</td>
+                        </tr>
+                        <?php //} ?>
                     </table>
                 </div>
             </div>
@@ -159,7 +147,7 @@ $arrAdvocate = $api->getAdvocates();
         <script src="public/jquery-2.0.3.min.js"></script>
 
         <!-- this script file is for global js -->
-        <script src="public/script.js"></script>
+        <script src="public/manage_advocate.js"></script>
 
         <!-- add bootstrap js -->
         <script src="public/bootstrap/js/bootstrap.min.js"></script>

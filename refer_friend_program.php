@@ -1,7 +1,12 @@
 <?php
-//include 'models/patient_model.php';
-//$patient_model = new patient_model();
-//$patients = $patient_model->list_all(20);
+include './api/refer_friend_program_api.php';
+$api = new refer_friend_program_api();
+//$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks();
+//$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport();
+//$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport();
+//$objAdvocate = $api->getAdvocate();
+//$arrRedemptionRequests = $api->getRedemptionRequests();
+//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods()
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +107,7 @@
         <script src="public/jquery-2.0.3.min.js"></script>
 
         <!-- this script file is for global js -->
-        <script src="public/script.js"></script>
+        <script src="public/refer_friend_program.js"></script>
 
         <!-- add bootstrap js -->
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
