@@ -23,3 +23,9 @@
 #paypalAccountModal .modal-dialog{
     width: 60%;
 }
+.help-block {
+    color: #737373;
+    display: block;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}

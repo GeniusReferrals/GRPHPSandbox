@@ -8,23 +8,23 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="col-sm-7 col-xs-12">
-                            <form class="form-horizontal" role="form" id="redeem_bonuses_form">
+                            <form class="form-horizontal" role="form" id="form_redeem_bonuses">
                                 <div class="form-group">
                                     <label for="amount_redeem" class="col-sm-5 control-label">Amount to redeem:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="amount_redeem">
+                                        <input type="text" class="form-control" id="amount_redeem" name="amount_redeem">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="redemption_type" class="col-sm-5 control-label">Redemption type:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="redemption_type">
+                                        <input type="text" class="form-control" id="redemption_type" name="redemption_type">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="paypal_account" class="col-sm-5 control-label">Paypal account:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="paypal_account">
+                                        <input type="text" class="form-control" id="paypal_account" name="paypal_account">
                                     </div>
                                     <div style="float: right; margin-top: -26px; margin-right: -7px;">
                                         <a id="paypal_account_actions" type="button" name="paypal_account_actions" title="Actions" href="#"><span class="glyphicon glyphicon-edit"></span></a>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div style="float: right; margin-right: 14px;">
-                                        <button data-loading-text="Loading..." type="submit" id="btn_redeem_bonuses" class="btn btn-primary">Redeem bonuses</button>
+                                        <button data-loading-text="Loading..." type="button" id="btn_redeem_bonuses" class="btn btn-primary">Redeem bonuses</button>
                                     </div>
                                 </div>
                             </form>
@@ -93,3 +93,12 @@
         </div>
     </div>
 </div>
+
+<style type="text/css">
+    .help-block {
+        color: #737373;
+        display: none !important;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+</style>

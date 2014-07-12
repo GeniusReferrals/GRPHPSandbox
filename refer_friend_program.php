@@ -20,13 +20,10 @@ $api = new refer_friend_program_api();
 
         <title>GRPHPSandbox</title>
 
-        <!-- Bootstrap core CSS -->
         <link href="public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
         <link href="public/styles.css" rel="stylesheet">
 
     </head>
@@ -103,14 +100,15 @@ $api = new refer_friend_program_api();
 
         </div> <!-- /container -->
 
-        <!-- scripts at the bottom! -->
         <script src="public/jquery-2.0.3.min.js"></script>
 
-        <!-- this script file is for global js -->
-        <script src="public/refer_friend_program.js"></script>
+        <script src="public/jquery.validate.min.js"></script>
 
-        <!-- add bootstrap js -->
+        <script src="public/jquery.validate.defaults.js"></script>
+        
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="public/refer_friend_program.js"></script>
 
     </body>
 </html>

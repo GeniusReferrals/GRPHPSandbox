@@ -15,13 +15,10 @@ $api = new manage_advocate_api();
 
         <title>GRPHPSandbox</title>
 
-        <!-- Bootstrap core CSS -->
         <link href="public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
         <link href="public/styles.css" rel="stylesheet">
 
     </head>
@@ -77,7 +74,7 @@ $api = new manage_advocate_api();
                         <p>New Advocate</p>
                         <button type="button" class="close" id="btn_close_advocate">&times;</button>
                     </div>
-                    <form class="form-horizontal" role="form" id="new_advocate_form" method="POST">
+                    <form class="form-horizontal" role="form" id="form_new_advocate" method="POST">
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label for="name" class="col-sm-4 control-label">Name</label>
@@ -143,14 +140,15 @@ $api = new manage_advocate_api();
 
         </div> <!-- /container -->
 
-        <!-- scripts at the bottom! -->
         <script src="public/jquery-2.0.3.min.js"></script>
+        
+        <script src="public/jquery.validate.min.js"></script>
+        
+        <script src="public/jquery.validate.defaults.js"></script>
 
-        <!-- this script file is for global js -->
-        <script src="public/manage_advocate.js"></script>
-
-        <!-- add bootstrap js -->
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
+        
+        <script src="public/manage_advocate.js"></script>
 
     </body>
 </html>

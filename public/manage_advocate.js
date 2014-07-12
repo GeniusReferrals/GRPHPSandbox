@@ -9,24 +9,27 @@ $(document).ready(function() {
     });
 
     $('#btn1_new_advocate').click(function() {
-        var data = {
-            name: $('#name').val(),
-            last_name: $('#last_name').val(),
-            email: $('#email').val(),
-        };
-        var stepRequest = $.ajax({
-            url: 'ajax/manage_advocate_ajax.php?method=createAdvocate',
-            data: {'data': data},
-            type: 'POST'
-        });
-        stepRequest.done(function(response) {
-            if (response) {
-                $('#name').val('');
-                $('#last_name').val('');
-                $('#email').val('');
-                $('#new_advocate_container').hide();
-            }
-        });
+        var isValid = validate();
+        if (isValid) {
+            var data = {
+                name: $('#name').val(),
+                last_name: $('#last_name').val(),
+                email: $('#email').val(),
+            };
+            var stepRequest = $.ajax({
+                url: 'ajax/manage_advocate_ajax.php?method=createAdvocate',
+                data: {'data': data},
+                type: 'POST'
+            });
+            stepRequest.done(function(response) {
+                if (response) {
+                    $('#name').val('');
+                    $('#last_name').val('');
+                    $('#email').val('');
+                    $('#new_advocate_container').hide();
+                }
+            });
+        }
     });
 
     $('#search_advocate').click(function() {
@@ -56,3 +59,15 @@ $(document).ready(function() {
         });
     });
 });
+
+function validate()
+{
+    $('#form_new_advocate').validate({
+        rules: {
+            'name': {required: true},
+            'last_name': {required: true},
+            'email': {required: true, email: true}
+        }
+    });
+    return $('#form_new_advocate').valid();
+}
