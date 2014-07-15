@@ -37,18 +37,23 @@ $(document).ready(function() {
                     $('#btn_redeem_bonuses').addClass('btn-primary');
                 }
             });
-            stepRequest.done(function(response) {
-                if (response) {
-                    $('#div_table_redemption').html(response);
-                    if ($('#div_table_redemption tr').length != 0)
-                    {
-                        $('#div_table_redemption').append($('.pagination'));
-                        $('.pagination').attr("style", "display: block; float: right;");
-                        $('#div_table_redemption').append($('<div style="clear: both;"></div>'));
-                    }
-                    $('#redeem_bonuses_amount_redeem').val('');
-                    document.getElementById('redeem_bonuses_redemption_type').selectedIndex = 0;
-                    document.getElementById('redeem_bonuses_paypal_account').selectedIndex = 0;
+            stepRequest.done(function(data) {
+                var data = jQuery.parseJSON(data);
+                if (data.success) {
+                    $.each(data.message, function(i, elem) {
+                        row_redemption = $('<tr>' +
+                                '<td>' + elem.created + '</td>' +
+                                '<td>' + elem.amount + '</td>' +
+                                '<td> Referral </td>' +
+                                '<td>' + elem._advocate.name + '</td>' +
+                                '<td>' + elem.request_status_slug + '</td>' +
+                                '<td>' + elem.request_action_slug + '</td>' +
+                                '</tr>');
+                        $('#table_redemption').append(row_redemption);
+                    });
+                    $('#amount_redeem').val('');
+                    $('#redemption_type').val();
+                    document.getElementById('paypal_account').selectedIndex = 0;
                 }
             });
         }

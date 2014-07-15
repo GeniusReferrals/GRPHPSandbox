@@ -24,7 +24,12 @@
                                 <div class="form-group">
                                     <label for="paypal_account" class="col-sm-5 control-label">Paypal account:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="paypal_account" name="paypal_account">
+                                        <select id="paypal_account" name="paypal_account" class="form-control">
+                                            <option value="">Choose</option>
+                                            <?php foreach ($arrAdvocatePaymentMethods as $objAdvocatePaymentMethods) { ?>
+                                                <option value="<?php echo $objAdvocatePaymentMethods->username ?>"><?php echo $objAdvocatePaymentMethods->username ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                     <div style="float: right; margin-top: -26px; margin-right: -7px;">
                                         <a id="paypal_account_actions" type="button" name="paypal_account_actions" title="Actions" href="#"><span class="glyphicon glyphicon-edit"></span></a>
@@ -54,11 +59,11 @@
                     <div class="panel-heading" style="line-height: 2">
                         <div style="height: 94px;">
                             <h5><strong>Redeemable amount:</strong></h5>
-                            <h3 style="color: #5CB85C;"><strong><?php isset($objAdvocate->unclaimed_balance) ? $objAdvocate->unclaimed_balance : ''?></strong></h3>
+                            <h3 style="color: #5CB85C;"><strong><?php isset($objAdvocate->unclaimed_balance) ? $objAdvocate->unclaimed_balance : '' ?></strong></h3>
                         </div>
                         <div style="height: 93px;">
                             <h5><strong>Redeemed amount:</strong></h5>
-                            <h3 style="color: #D9534F;"><strong><?php isset($objAdvocate->claimed_balance) ? $objAdvocate->claimed_balance : ''?></strong></h3>
+                            <h3 style="color: #D9534F;"><strong><?php isset($objAdvocate->claimed_balance) ? $objAdvocate->claimed_balance : '' ?></strong></h3>
                         </div>
                     </div>
                 </div>
@@ -67,8 +72,8 @@
 
         <h4 style="margin-bottom: 15px;">Redemption history</h4>
 
-        <div id="div_table_redemption" class="table-responsive">
-            <table class="table table-striped table-bordered">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" id="table_redemption" >
                 <thead>
                     <tr>
                         <th>Redeemed on</th>
@@ -79,16 +84,16 @@
                         <th>Type</th>
                     </tr>
                 </thead>
-                <?php //foreach ($arrRedemptionRequests as $objRedemptionRequests) { ?>
+                <?php foreach ($arrRedemptionRequests as $objRedemptionRequests) { ?>
                     <tr>
-                        <td><?php //echo date('M d, Y', strtotime($objRedemptionRequests->created))?></td>
-                        <td><?php //echo $objRedemptionRequests->amount ?></td>
+                        <td><?php echo date('M d, Y', strtotime($objRedemptionRequests->created)) ?></td>
+                        <td><?php echo $objRedemptionRequests->amount ?></td>
                         <td>Referral</td>
-                        <td><?php //echo $objRedemptionRequests->_advocate->name ?></td>
-                        <td><?php //echo $objRedemptionRequests->request_status_slug ?></td>
-                        <td><?php //echo $objRedemptionRequests->request_action_slug ?></td>
+                        <td><?php echo $objRedemptionRequests->_advocate->name ?></td>
+                        <td><?php echo $objRedemptionRequests->request_status_slug ?></td>
+                        <td><?php echo $objRedemptionRequests->request_action_slug ?></td>
                     </tr>
-                <?php //} ?>
+                <?php } ?>
             </table>
         </div>
     </div>

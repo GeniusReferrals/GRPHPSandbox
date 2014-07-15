@@ -1,7 +1,7 @@
 <?php
 include './api/manage_advocate_api.php';
 $api = new manage_advocate_api();
-//$arrAdvocate = $api->createAdvocates();
+$arrAdvocate = $api->getAdvocates();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ $api = new manage_advocate_api();
                             </div>
                         </div>
                         <div style="text-align: right;">
-                            <button id="search_advocate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
+                            <button data-loading-text="Loading..." id="btn_search_advocate" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
                         </div>
                     </div>
                 </form>
@@ -97,7 +97,7 @@ $api = new manage_advocate_api();
                                 </div>
                             </div>
                             <div style="text-align: right;">
-                                <input class="btn btn-primary" type="button" value="Submit" id="btn1_new_advocate">
+                                <input data-loading-text="Loading..." class="btn btn-primary" type="button" value="Submit" id="btn1_new_advocate">
                             </div>
                         </div>
                     </form>
@@ -113,20 +113,36 @@ $api = new manage_advocate_api();
                             <th>Creation date</th>
                             <th>Actions</th>
                         </tr>
-                        <?php //foreach ($arrAdvocate as $objAdvocate) { ?>
-                        <tr>
-                            <td><?php //echo $objAdvocate->name  ?></td>
-                            <td><?php //echo $objAdvocate->lastname  ?></td>
-                            <td><?php //echo $objAdvocate->email  ?></td>
-                            <td><?php //echo $objAdvocate->email  ?></td>
-                            <td><?php //echo $objAdvocate->_campaign_contract->name  ?></td>
-                            <td><?php //echo date('M d, Y',strtotime($objAdvocate->created))  ?></td>
-                            <td>Actions</td>
-                        </tr>
-                        <?php //} ?>
+                        <?php foreach ($arrAdvocate as $objAdvocate) { ?>
+                            <tr>
+                                <td><?php echo $objAdvocate->name ?></td>
+                                <td><?php echo $objAdvocate->lastname ?></td>
+                                <td><?php echo $objAdvocate->email ?></td>
+                                <td><?php echo $objAdvocate->email ?></td>
+                                <td><?php echo isset($objAdvocate->_campaign_contract->name) ? $objAdvocate->_campaign_contract->name : '' ?></td>
+                                <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
+                                <td class="actions">
+                                    <a id="<?php echo $objAdvocate->token ?>" class="create_referral" href="#" title="Create referrer" data-toggle="modal">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                    <?php if (isset($objAdvocate->_advocate_referrer->email)) { ?>
+                                        <a id="<?php echo $objAdvocate->token ?>" class="process_bonus" href="#" title="Process bonus" data-toggle="modal">
+                                            <span class="glyphicon glyphicon-retweet"></span>
+                                        </a>
+                                        <a id="<?php echo $objAdvocate->token ?>" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal">
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        </a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </table>
                 </div>
             </div>
+
+            <div class="modal fade" id="createReferralModal" tabindex="-1" role="dialog" aria-labelledby="createReferralLabel" aria-hidden="true"></div>
+            <div class="modal fade" id="checkupBonusModal" tabindex="-1" role="dialog" aria-labelledby="checkupBonusLabel" aria-hidden="true"></div>
+            <div class="modal fade" id="processBonusModal" tabindex="-1" role="dialog" aria-labelledby="processBonusLabel" aria-hidden="true"></div>
 
             <div class="footer">
                 <ul class="nav nav-pills pull-left">
@@ -141,13 +157,13 @@ $api = new manage_advocate_api();
         </div> <!-- /container -->
 
         <script src="public/jquery-2.0.3.min.js"></script>
-        
+
         <script src="public/jquery.validate.min.js"></script>
-        
+
         <script src="public/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
-        
+
         <script src="public/manage_advocate.js"></script>
 
     </body>

@@ -9,6 +9,9 @@ class refer_friend_program_api {
     protected $objGeniusReferralsAPIClient;
 
     public function __construct() {
+
+        session_start();
+
         // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient('alain@hlasolutionsgroup.com', '8450103c06dbd58add9d047d761684096ac560ca');
     }
@@ -18,17 +21,28 @@ class refer_friend_program_api {
      */
     public function getAdvocatesShareLinks() {
 
-        $arrAdvocatesShareLinks = $this->objGeniusReferralsAPIClient->getAdvocatesShareLinks('genius-referrals', $strGRAdvocateToken);
-        $arrAdvocatesShareLinks = json_decode($arrAdvocatesShareLinks);
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
 
-        $tempDir = __DIR__ . '\..\uploads';
-        $codeContents = isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'} : '';
-        if (file_exists(__DIR__ . '\..\Library\phpqrcode\qrlib.php')) {
-            require __DIR__ . '\..\Library\phpqrcode\qrlib.php';
-            \QRcode::png($codeContents, $tempDir . '\qrcode.png', QR_ECLEVEL_H);
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+                $arrAdvocatesShareLinks = $this->objGeniusReferralsAPIClient->getAdvocatesShareLinks('genius-referrals', $strGRAdvocateToken);
+                $arrAdvocatesShareLinks = json_decode($arrAdvocatesShareLinks);
+
+                $tempDir = __DIR__ . '\..\uploads';
+                $codeContents = isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'} : '';
+                if (file_exists(__DIR__ . '\..\Library\phpqrcode\qrlib.php')) {
+                    require __DIR__ . '\..\Library\phpqrcode\qrlib.php';
+                    \QRcode::png($codeContents, $tempDir . '\qrcode.png', QR_ECLEVEL_H);
+                }
+
+                if(isset($arrAdvocatesShareLinks->data->results))
+                    return $arrAdvocatesShareLinks->data->results;
+                else
+                    return array();
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
         }
-
-        return $arrAdvocatesShareLinks->data->results;
     }
 
     /**
@@ -36,16 +50,34 @@ class refer_friend_program_api {
      */
     public function getReferralsSummaryPerOriginReport() {
 
-        $arrReferralsSummary = $this->objGeniusReferralsAPIClient->getReferralsSummaryPerOriginReport($strGRAdvocateToken);
-        $arrReferralsSummary = json_decode($arrReferralsSummary);
-        return $this->convertSummaryPerOrigin($arrReferralsSummary->data);
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
+
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
+                $arrReferralsSummary = $this->objGeniusReferralsAPIClient->getReferralsSummaryPerOriginReport($strGRAdvocateToken);
+                $arrReferralsSummary = json_decode($arrReferralsSummary);
+                return $this->convertSummaryPerOrigin($arrReferralsSummary->data);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     public function getBonusesSummaryPerOriginReport() {
 
-        $arrBonusesSummary = $this->objGeniusReferralsAPIClient->getBonusesSummaryPerOriginReport($strGRAdvocateToken);
-        $arrBonusesSummary = json_decode($arrBonusesSummary);
-        $arrBonusesSummaryPerOrigin = $this->convertSummaryPerOrigin($arrBonusesSummary->data);
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
+
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
+                $arrBonusesSummary = $this->objGeniusReferralsAPIClient->getBonusesSummaryPerOriginReport($strGRAdvocateToken);
+                $arrBonusesSummary = json_decode($arrBonusesSummary);
+                $arrBonusesSummaryPerOrigin = $this->convertSummaryPerOrigin($arrBonusesSummary->data);
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     /**
@@ -53,23 +85,53 @@ class refer_friend_program_api {
      */
     public function getAdvocate() {
 
-        $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
-        $objAdvocate = json_decode($objAdvocate);
-        return $objAdvocate->data;
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
+
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
+                $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
+                $objAdvocate = json_decode($objAdvocate);
+                return $objAdvocate->data;
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     public function getRedemptionRequests() {
 
-        $arrRedemptionRequests = $this->objGeniusReferralsAPIClient->getRedemptionRequests('genius-referrals', $page, 10, 'email::' . $objAdvocate->data->email . '');
-        $arrRedemptionRequests = json_decode($arrRedemptionRequests);
-        return $arrRedemptionRequests->data->results;
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
+
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
+                $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
+                $objAdvocate = json_decode($objAdvocate);
+
+                $arrRedemptionRequests = $this->objGeniusReferralsAPIClient->getRedemptionRequests('genius-referrals', 1, 10, 'email::' . $objAdvocate->data->email . '');
+                $arrRedemptionRequests = json_decode($arrRedemptionRequests);
+                return $arrRedemptionRequests->data->results;
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     public function getAdvocatePaymentMethods() {
 
-        $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
-        $aryPaymentMethods = json_decode($aryPaymentMethods);
-        return $aryPaymentMethods->data->results;
+        try {
+            if (!empty($_SESSION['strAdvocateToken'])) {
+
+                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
+                $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
+                $aryPaymentMethods = json_decode($aryPaymentMethods);
+                return $aryPaymentMethods->data->results;
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     private function convertSummaryPerOrigin($arrSummaryPerOrigin) {

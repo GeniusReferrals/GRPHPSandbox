@@ -1,7 +1,7 @@
 <?php
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();
-//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
+$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
 ?>
 
 <div class="modal-dialog">
@@ -22,8 +22,8 @@ $api = new refer_friend_program_api();
                                 </a>
                             </span>
                         </div>
-                        <div id="div_table_payment" class="table-responsive">
-                            <table class="table table-hover table-condensed" id="tb-users">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed" id="table_payment" >
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -32,14 +32,16 @@ $api = new refer_friend_program_api();
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <?php foreach ($arrAdvocatePaymentMethods as $objAdvocatePaymentMethods) { ?>
                                     <tr>
-                                        <td>Name</td>
-                                        <td>Name</td>
-                                        <td>Name</td>
-                                        <td>Name</td>
+                                        <td><?php echo $objAdvocatePaymentMethods->description ?></td>
+                                        <td><?php echo $objAdvocatePaymentMethods->username ?></td>
+                                        <td><span class="<?php echo $objAdvocatePaymentMethods->is_active == 0 ? 'glyphicon glyphicon-remove-circle' : 'glyphicon glyphicon-check' ?>"></span></td>
+                                        <td class="actions">
+                                            <a type="button" id="<?php echo $objAdvocatePaymentMethods->id ?>" data-loading-text="Loading..." data-name="<?php echo $objAdvocatePaymentMethods->description ?>" data-email="<?php echo $objAdvocatePaymentMethods->username ?>" data-state="<?php echo $objAdvocatePaymentMethods->is_active ? 0 : 1 ?>" class="activate_desactivate" title="" href="#"><?php echo $objAdvocatePaymentMethods->is_active == 1 ? 'Desactive' : 'Active' ?></a>
+                                        </td>
                                     </tr>
-                                </tbody>
+                                <?php } ?>
                             </table>
                         </div>
                     </div>

@@ -1,12 +1,12 @@
 <?php
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();
-//$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks();
-//$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport();
-//$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport();
-//$objAdvocate = $api->getAdvocate();
-//$arrRedemptionRequests = $api->getRedemptionRequests();
-//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods()
+$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks();
+$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport();
+$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport();
+$objAdvocate = $api->getAdvocate();
+$arrRedemptionRequests = $api->getRedemptionRequests();
+$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ $api = new refer_friend_program_api();
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li><a href="index.php">Manage advocate</a></li>
-                    <li class="active"><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
                 </ul>
                 <h3 class="text-muted">GRPHPSandbox</h3>
             </div>
@@ -92,7 +92,7 @@ $api = new refer_friend_program_api();
         <script src="public/jquery.validate.min.js"></script>
 
         <script src="public/jquery.validate.defaults.js"></script>
-        
+
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="public/refer_friend_program.js"></script>

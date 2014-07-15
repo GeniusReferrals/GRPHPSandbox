@@ -16,14 +16,23 @@ class manage_advocate_api {
 
     public function getAdvocates() {
 
-        //Test authentication
-        $strResponse = $this->objGeniusReferralsAPIClient->testAuthentication();
-        $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
-
-        if ($intResponseCode == 200) {
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals');
+        try {
+            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 50);
             $arrAdvocate = json_decode($arrAdvocate);
             return $arrAdvocate->data->results;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
         }
     }
+
+    public function getCampaigns() {
+        
+        try {
+            $arrCampaigns = $this->objGeniusReferralsAPIClient->getCampaigns('genius-referrals');
+            $arrCampaigns = json_decode($arrCampaigns);
+            return $arrCampaigns->data->results;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }    
 }

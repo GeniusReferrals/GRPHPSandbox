@@ -36,3 +36,17 @@ ul.help-text li{
     padding: 7px 0 0 42px;
     vertical-align: middle;
 }
+.container_referral{
+    float: left; 
+    width: auto; 
+    text-align: center;
+    margin-right: 15px;
+}
+.div_referral{
+    border: 1px solid white; 
+    height: 28px; 
+    background-color: white; 
+    text-align: center; 
+    vertical-align: super ! important; 
+    padding-top: 2px;
+}
