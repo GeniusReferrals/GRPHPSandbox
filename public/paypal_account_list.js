@@ -58,7 +58,7 @@ $(document).ready(function() {
                             '<td>' + elem.username + '</td>' +
                             '<td><span class="' + icon_is_active + '"></span></td>' +
                             '<td class="actions">' +
-                            '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" onClick="activateDesactivate()">' + title + '</a>' +
+                            '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\''+ elem.id +'-'+ elem.description +'-'+ elem.username +'-'+ state +'\')">' + title + '</a>' +
                             '</td>' +
                             '</tr>');
                     $('#table_payment').append(row_account);
@@ -68,14 +68,20 @@ $(document).ready(function() {
     });
 });
 
-function activateDesactivate() {
+function activateDesactivate(data) {
 
-    id = $(this).attr('id');
+    result = data.split('-');
+    payment_method_id = result[0];
+    description = result[1];
+    username = result[2];
+    is_active = result[3];
+    
+    id = payment_method_id;
     var data = {
-        payment_method_id: $(this).attr('id'),
-        description: $(this).data('name'),
-        username: $(this).data('email'),
-        is_active: $(this).data('state')
+        payment_method_id: payment_method_id,
+        description: description,
+        username: username,
+        is_active: is_active
     };
     var stepRequest = $.ajax({
         type: "POST",
@@ -111,7 +117,7 @@ function activateDesactivate() {
                         '<td>' + elem.username + '</td>' +
                         '<td><span class="' + icon_is_active + '"></span></td>' +
                         '<td class="actions">' +
-                        '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" title="" href="#">' + title + '</a>' +
+                        '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\''+ elem.id +'-'+ elem.description +'-'+ elem.username +'-'+ state +'\')">' + title + '</a>' +
                         '</td>' +
                         '</tr>');
                 $('#table_payment').append(row_account);

@@ -50,3 +50,6 @@ ul.help-text li{
     vertical-align: super ! important; 
     padding-top: 2px;
 }
+a:hover{
+    cursor: pointer;
+}

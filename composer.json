@@ -1,0 +1,9 @@
+{
+    "name": "GRPHPSandbox",
+    "type": "project",
+    "description": "The \"GRPHPSandbox\" project",
+    
+    "require": {
+        "geniusreferrals/gr-api-php-client": "dev-master"
+    }
+}

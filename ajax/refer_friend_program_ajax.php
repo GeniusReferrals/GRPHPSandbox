@@ -134,7 +134,7 @@ class refer_friend_program_ajax {
 
     public function redeemBonuses($data) {
 
-        $strGRAdvocateToken = 'aaa';
+        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
         $intAmountRedeem = $data['amount_redeem'];
         $strRedemptionType = $data['redemption_type'];
         $strPaypalAccount = $data['paypal_account'];
@@ -160,9 +160,6 @@ class refer_friend_program_ajax {
                 $strLocation = $arrLocation[0];
                 $arrParts = explode('/', $strLocation);
                 $intRedemptionRequestId = end($arrParts);
-
-                $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
-                $objAdvocate = json_decode($objAdvocate);
 
                 $objRedemptionRequest = $this->objGeniusReferralsAPIClient->getRedemptionRequest('genius-referrals', $intRedemptionRequestId);
                 $objRedemptionRequest = json_decode($objRedemptionRequest);

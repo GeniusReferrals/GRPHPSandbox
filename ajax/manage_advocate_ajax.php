@@ -160,8 +160,6 @@ class manage_advocate_ajax {
 
         //trying to give a bonus to the advocate's referrer
         $responseCheckup = $this->objGeniusReferralsAPIClient->getBonusesCheckup('genius_referrals', $arrReferral);
-        echo'<pre>';
-        print_r($responseCheckup);die;
         $objCheckup = json_decode($responseCheckup);
         $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 

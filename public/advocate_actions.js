@@ -145,7 +145,6 @@ $(document).ready(function() {
                         $('#processBonusModal #status_success span#lb_status').html(data.message.status);
                         $('#processBonusModal #status_success span#lb_bonus_amount').html(data.message.bonus_amount);
                         $('#processBonusModal #status_success span#lb_advocates_referrer').html(data.message.advocates_referrer_name);
-//                        $('#processBonusModal #status_success #lb_advocates_referrer a.advocate_details').attr('id', data.message.advocates_referrer_token);
 
                         $('#processBonusModal #container_status_success').css('display', 'block');
                         $('#processBonusModal #container_status_fail').css('display', 'none');

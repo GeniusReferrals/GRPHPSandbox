@@ -48,7 +48,7 @@ $(document).ready(function() {
                             '<td>' + data.message.username + '</td>' +
                             '<td><span class="' + icon_is_active + '"></span></td>' +
                             '<td class="actions">' +
-                            '<a type="button" id="' + data.message.id + '" data-loading-text="Loading..." data-name="' + data.message.description + '" data-email="' + data.message.username + '" data-state="' + state + '" class="activate_desactivate" title="" href="#">' + title + '</a>' +
+                            '<a type="button" id="' + data.message.id + '" data-loading-text="Loading..." data-name="' + data.message.description + '" data-email="' + data.message.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\''+ data.message.id +'-'+ data.message.description +'-'+ data.message.username +'-'+ state +'\')">' + title + '</a>' +
                             '</td>' +
                             '</tr>');
                     $('#table_payment').append(row_account);

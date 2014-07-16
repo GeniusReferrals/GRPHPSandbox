@@ -42,7 +42,7 @@ $(document).ready(function() {
                 if (data.success) {
                     $.each(data.message, function(i, elem) {
                         row_redemption = $('<tr>' +
-                                '<td>' + elem.created + '</td>' +
+                                '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
                                 '<td>' + elem.amount + '</td>' +
                                 '<td> Referral </td>' +
                                 '<td>' + elem._advocate.name + '</td>' +
