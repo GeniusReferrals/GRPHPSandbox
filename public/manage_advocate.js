@@ -4,18 +4,16 @@ $(document).ready(function() {
     $('#btn_new_advocate').click(function() {
         $('#new_advocate_container').show();
     });
-
     $('#btn_close_advocate').click(function() {
         $('#new_advocate_container').hide();
     });
-
     $('#btn1_new_advocate').click(function() {
         var isValid = validateNewAdvocate();
         if (isValid) {
             var data = {
                 name: $('#name').val(),
                 last_name: $('#last_name').val(),
-                email: $('#email').val(),
+                email: $('#email').val()
             };
             var stepRequest = $.ajax({
                 url: 'ajax/manage_advocate_ajax.php?method=createAdvocate',
@@ -35,20 +33,27 @@ $(document).ready(function() {
             stepRequest.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
-//                    if (data.message._campaign_contract.name === 'undefined')
-                    campaign_contract = '';
-//                    else
-//                        campaign_contract = data.message._campaign_contract.name;
-                    row_advocate = $('<tr>' +
+                    if (typeof data.message._campaign_contract === 'undefined')
+                        campaign_contract = '';
+                    else
+                        campaign_contract = data.message._campaign_contract.name;
+                    row_advocate1 = $('<tr>' +
                             '<td>' + data.message.name + '</td>' +
                             '<td>' + data.message.lastname + '</td>' +
                             '<td>' + data.message.email + '</td>' +
-                            '<td>' + data.message.email + '</td>' +
+                            '<td>Genius referral</td>' +
                             '<td>' + campaign_contract + '</td>' +
-                            '<td>' + data.message.created + '</td>' +
-                            '<td>Actions</td>' +
-                            '</tr>');
-                    $('#table_advocate').append(row_advocate);
+                            '<td>' + dateFormat(new Date(data.message.created), "mediumDate") + '</td>');
+                    row_advocate2 = $('<td class="actions">' +
+                            '<a id="' + data.message.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\''+ data.message.token +'\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+                    row_advocate3 = $('<a id="' + data.message.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\''+ data.message.token +'\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                            '<a id="' + data.message.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\''+ data.message.token +'\')"><span class="glyphicon glyphicon-check"></span></a>');
+
+                    $('#table_advocate').append(row_advocate1);
+                    row_advocate1.append(row_advocate2);
+                    if (typeof data.message._advocate_referrer !== 'undefined')
+                        row_advocate2.append(row_advocate3);
+
                     $('#name').val('');
                     $('#last_name').val('');
                     $('#email').val('');
@@ -57,7 +62,6 @@ $(document).ready(function() {
             });
         }
     });
-
     $('#btn_search_advocate').click(function() {
         var isValid = validateSearchAdvocate();
         if (isValid) {
@@ -86,20 +90,26 @@ $(document).ready(function() {
                 if (data.success) {
                     $('#table_advocate td').remove();
                     $.each(data.message, function(i, elem) {
-//                        if (elem._campaign_contract.name != '')
-//                            campaign_contract = elem._campaign_contract.name;
-//                        else
-                        campaign_contract = '';
-                        row_advocate = $('<tr>' +
+                        if (typeof elem._campaign_contract === 'undefined')
+                            campaign_contract = '';
+                        else
+                            campaign_contract = elem._campaign_contract.name;
+                        row_advocate1 = $('<tr>' +
                                 '<td>' + elem.name + '</td>' +
                                 '<td>' + elem.lastname + '</td>' +
                                 '<td>' + elem.email + '</td>' +
-                                '<td>' + elem.email + '</td>' +
+                                '<td> Genius referrals </td>' +
                                 '<td>' + campaign_contract + '</td>' +
-                                '<td>' + elem.created + '</td>' +
-                                '<td>Actions</td>' +
-                                '</tr>');
-                        $('#table_advocate').append(row_advocate);
+                                '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
+                        row_advocate2 = $('<td class="actions">' +
+                                '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\''+ elem.token +'\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+                        row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\''+ elem.token +'\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                                '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\''+ elem.token +'\')"><span class="glyphicon glyphicon-check"></span></a>');
+
+                        $('#table_advocate').append(row_advocate1);
+                        row_advocate1.append(row_advocate2);
+                        if (typeof elem._advocate_referrer !== 'undefined')
+                            row_advocate2.append(row_advocate3);
                     });
                     $('#inputName').val('');
                     $('#inputLastname').val('');
@@ -109,11 +119,9 @@ $(document).ready(function() {
         }
     });
 });
-
 $('.create_referral').click(function(e) {
     e.preventDefault();
     advocate_token = $(this).attr('id');
-
     var stepRequest = $.ajax({
         type: "GET",
         url: 'create_referral.php',
@@ -126,11 +134,9 @@ $('.create_referral').click(function(e) {
         }
     });
 });
-
 $('.checkup_bonus').click(function(e) {
     e.preventDefault();
     advocate_token = $(this).attr('id');
-
     var stepRequest = $.ajax({
         type: "GET",
         url: 'checkup_bonus.php',
@@ -149,11 +155,9 @@ $('.checkup_bonus').click(function(e) {
         }
     });
 });
-
 $('.process_bonus').click(function(e) {
     e.preventDefault();
     advocate_token = $(this).attr('id');
-
     var stepRequest = $.ajax({
         type: "GET",
         url: 'process_bonus.php',
@@ -171,7 +175,6 @@ $('.process_bonus').click(function(e) {
         }
     });
 });
-
 function validateNewAdvocate()
 {
     $('#form_new_advocate').validate({
@@ -192,4 +195,58 @@ function validateSearchAdvocate()
         }
     });
     return $('#form_seach_advocate').valid();
+}
+
+function createReferral(advocate_token)
+{
+    var stepRequest = $.ajax({
+        type: "GET",
+        url: 'create_referral.php',
+        data: {'advocate_token': advocate_token}
+    });
+    $('#createReferralModal').modal('show');
+    stepRequest.done(function(response) {
+        if (response) {
+            $('#createReferralModal').html(response);
+        }
+    });
+}
+function checkupBonus(advocate_token)
+{
+    var stepRequest = $.ajax({
+        type: "GET",
+        url: 'checkup_bonus.php',
+        data: {'advocate_token': advocate_token}
+    });
+    $('#checkupBonusModal').modal('show');
+    stepRequest.done(function(response) {
+        if (response) {
+            $('#checkupBonusModal').html(response);
+            $('#checkupBonusModal').html(response);
+            $('#checkupBonusModal #reference').val('');
+            $('#checkupBonusModal #amount_payments').val('');
+            $('#checkupBonusModal #payment_amount').val('');
+            $('#checkupBonusModal #container_status_success').css('display', 'none');
+            $('#checkupBonusModal #container_status_fail').css('display', 'none');
+        }
+    });
+}
+function processBonus(advocate_token)
+{
+    var stepRequest = $.ajax({
+        type: "GET",
+        url: 'process_bonus.php',
+        data: {'advocate_token': advocate_token}
+    });
+    $('#processBonusModal').modal('show');
+    stepRequest.done(function(response) {
+        if (response) {
+            $('#processBonusModal').html(response);
+            $('#processBonusModal #reference').val('');
+            $('#processBonusModal #amount_payments').val('');
+            $('#processBonusModal #payment_amount').val('');
+            $('#processBonusModal #container_status_success').css('display', 'none');
+            $('#processBonusModal #container_status_fail').css('display', 'none');
+        }
+    });
 }

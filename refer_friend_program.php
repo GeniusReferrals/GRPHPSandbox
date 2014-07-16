@@ -90,12 +90,16 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
         <script src="public/jquery-2.0.3.min.js"></script>
 
         <script src="public/jquery.validate.min.js"></script>
-
+        
         <script src="public/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
+        
+        <script src="public/date.format.js"></script>
 
         <script src="public/refer_friend_program.js"></script>
+        
+        <script src="public/paypal_account_list.js"></script>
 
     </body>
 </html>

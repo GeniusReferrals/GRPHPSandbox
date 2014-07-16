@@ -38,7 +38,7 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
                                         <td><?php echo $objAdvocatePaymentMethods->username ?></td>
                                         <td><span class="<?php echo $objAdvocatePaymentMethods->is_active == 0 ? 'glyphicon glyphicon-remove-circle' : 'glyphicon glyphicon-check' ?>"></span></td>
                                         <td class="actions">
-                                            <a type="button" id="<?php echo $objAdvocatePaymentMethods->id ?>" data-loading-text="Loading..." data-name="<?php echo $objAdvocatePaymentMethods->description ?>" data-email="<?php echo $objAdvocatePaymentMethods->username ?>" data-state="<?php echo $objAdvocatePaymentMethods->is_active ? 0 : 1 ?>" class="activate_desactivate" title="" href="#"><?php echo $objAdvocatePaymentMethods->is_active == 1 ? 'Desactive' : 'Active' ?></a>
+                                            <a type="button" id="<?php echo $objAdvocatePaymentMethods->id ?>" data-loading-text="Loading..." data-name="<?php echo $objAdvocatePaymentMethods->description ?>" data-email="<?php echo $objAdvocatePaymentMethods->username ?>" data-state="<?php echo $objAdvocatePaymentMethods->is_active ? 0 : 1 ?>" class="activate_desactivate" href="#"><?php echo $objAdvocatePaymentMethods->is_active == 1 ? 'Desactive' : 'Active' ?></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

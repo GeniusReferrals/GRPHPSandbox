@@ -118,7 +118,7 @@ $arrAdvocate = $api->getAdvocates();
                                 <td><?php echo $objAdvocate->name ?></td>
                                 <td><?php echo $objAdvocate->lastname ?></td>
                                 <td><?php echo $objAdvocate->email ?></td>
-                                <td><?php echo $objAdvocate->email ?></td>
+                                <td>Genius referrals</td>
                                 <td><?php echo isset($objAdvocate->_campaign_contract->name) ? $objAdvocate->_campaign_contract->name : '' ?></td>
                                 <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
                                 <td class="actions">
@@ -157,13 +157,15 @@ $arrAdvocate = $api->getAdvocates();
         </div> <!-- /container -->
 
         <script src="public/jquery-2.0.3.min.js"></script>
-
+        
         <script src="public/jquery.validate.min.js"></script>
 
         <script src="public/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
+        <script src="public/date.format.js"></script>
+        
         <script src="public/manage_advocate.js"></script>
 
     </body>
