@@ -73,7 +73,7 @@ class refer_friend_program_api {
 
                 $arrBonusesSummary = $this->objGeniusReferralsAPIClient->getBonusesSummaryPerOriginReport($strGRAdvocateToken);
                 $arrBonusesSummary = json_decode($arrBonusesSummary);
-                $arrBonusesSummaryPerOrigin = $this->convertSummaryPerOrigin($arrBonusesSummary->data);
+                return $this->convertSummaryPerOrigin($arrBonusesSummary->data);
             }
         } catch (Exception $exc) {
             echo $exc->getMessage();
