@@ -30,29 +30,31 @@ $(document).ready(function() {
                 if (data.success) {
                     $('#paypal_account').append('<option value="' + data.message.username + '">' + data.message.username + '</option>');
 
-                    if (data.message.is_active == 0)
-                    {
-                        icon_is_active = 'glyphicon glyphicon-remove-circle';
-                        state = 1;
-                        title = 'Active';
-                    }
+                    $('#table_payment td').remove();
+                    $.each(data.message, function(i, elem) {
+                        if (elem.is_active == 0)
+                        {
+                            icon_is_active = 'glyphicon glyphicon-remove-circle';
+                            state = 1;
+                            title = 'Active';
+                        }
 
-                    else
-                    {
-                        icon_is_active = 'glyphicon glyphicon-check';
-                        state = 0;
-                        title = 'Desactive';
-                    }
-                    row_account = $('<tr>' +
-                            '<td>' + data.message.description + '</td>' +
-                            '<td>' + data.message.username + '</td>' +
-                            '<td><span class="' + icon_is_active + '"></span></td>' +
-                            '<td class="actions">' +
-                            '<a type="button" id="' + data.message.id + '" data-loading-text="Loading..." data-name="' + data.message.description + '" data-email="' + data.message.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\''+ data.message.id +'-'+ data.message.description +'-'+ data.message.username +'-'+ state +'\')">' + title + '</a>' +
-                            '</td>' +
-                            '</tr>');
-                    $('#table_payment').append(row_account);
-
+                        else
+                        {
+                            icon_is_active = 'glyphicon glyphicon-check';
+                            state = 0;
+                            title = 'Desactive';
+                        }
+                        row_account = $('<tr>' +
+                                '<td>' + elem.description + '</td>' +
+                                '<td>' + elem.username + '</td>' +
+                                '<td><span class="' + icon_is_active + '"></span></td>' +
+                                '<td class="actions">' +
+                                '<a type="button" id="' + elem.id + '" data-loading-text="Loading..." data-name="' + elem.description + '" data-email="' + elem.username + '" data-state="' + state + '" class="activate_desactivate" onclick="activateDesactivate(\'' + elem.id + '-' + elem.description + '-' + elem.username + '-' + state + '\')">' + title + '</a>' +
+                                '</td>' +
+                                '</tr>');
+                        $('#table_payment').append(row_account);
+                    });
 
                     $('#form_paypal_account #paypal_username').val('');
                     $('#form_paypal_account #paypal_description').val('');

@@ -10,7 +10,6 @@ $(document).ready(function() {
             campaign_slug = $(' select#campaing :selected').val();
             referral_origin_slug = $('select#network :selected').val();
 
-            url = Routing.generate('create_referrer');
             var request = $.ajax({
                 type: "POST",
                 url: 'ajax/manage_advocate_ajax.php?method=createReferral',

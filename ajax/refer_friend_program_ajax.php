@@ -42,7 +42,9 @@ class refer_friend_program_ajax {
             if (!empty($_SESSION['strAdvocateToken'])) {
 
                 $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+
                 if ($boolPaypalActive === '1') {
+
                     $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50, 'is_active::true');
                     $arrPaymentMethodsTrue = json_decode($response);
 
@@ -69,14 +71,9 @@ class refer_friend_program_ajax {
                 $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
                 if ($intResponseCode == '201') {
-                    $arrLocation = $objResponse->getHeader('Location')->raw();
-                    $strLocation = $arrLocation[0];
-                    $arrParts = explode('/', $strLocation);
-                    $intAdvocatePaymentMethodId = end($arrParts);
-
-                    $objPaymentMethod = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethod('genius-referrals', $strGRAdvocateToken, $intAdvocatePaymentMethodId);
-                    $objPaymentMethod = json_decode($objPaymentMethod);
-                    return $objPaymentMethod->data;
+                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
+                    $aryPaymentMethods = json_decode($aryPaymentMethods);
+                    return $aryPaymentMethods->data->results;
                 }
             }
         } catch (Exception $exc) {
@@ -95,7 +92,8 @@ class refer_friend_program_ajax {
             if (!empty($_SESSION['strAdvocateToken'])) {
 
                 $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
-                if ($boolPaypalActive == 1) {
+
+                if ($boolPaypalActive === '1') {
                     $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50, 'is_active::true');
                     $arrPaymentMethodsTrue = json_decode($response);
 
@@ -108,7 +106,7 @@ class refer_friend_program_ajax {
                         }
                     }
                 }
-                if ($boolPaypalActive == 1) {
+                if ($boolPaypalActive === '1') {
                     $aryPaymentMethodData = array('advocate_payment_method' => array(
                             'username' => $strPaypalUsername,
                             'description' => $strPaypalDescription,

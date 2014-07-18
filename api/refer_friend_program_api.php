@@ -28,15 +28,15 @@ class refer_friend_program_api {
                 $arrAdvocatesShareLinks = $this->objGeniusReferralsAPIClient->getAdvocatesShareLinks('genius-referrals', $strGRAdvocateToken);
                 $arrAdvocatesShareLinks = json_decode($arrAdvocatesShareLinks);
 
-                $tempDir = __DIR__ . '\..\uploads';
-                $codeContents = isset($arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'}) ? $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'} : '';
-                if (file_exists(__DIR__ . '\..\Library\phpqrcode\qrlib.php')) {
-                    require __DIR__ . '\..\Library\phpqrcode\qrlib.php';
-                    \QRcode::png($codeContents, $tempDir . '\qrcode.png', QR_ECLEVEL_H);
+                $codeContents = $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'};
+                if (file_exists(__DIR__ . '\..\library\phpqrcode\qrlib.php')) {
+                    require __DIR__ . '\..\library\phpqrcode\qrlib.php';
+                    $tempDir = __DIR__ . '\..\uploads/' . $strGRAdvocateToken . '.png';
+                    \QRcode::png($codeContents, $tempDir, QR_ECLEVEL_H);
                 }
 
-                if(isset($arrAdvocatesShareLinks->data->results))
-                    return $arrAdvocatesShareLinks->data->results;
+                if (isset($arrAdvocatesShareLinks->data))
+                    return $arrAdvocatesShareLinks->data;
                 else
                     return array();
             }
