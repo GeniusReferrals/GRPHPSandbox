@@ -1,12 +1,16 @@
 <?php
+
+$strAdvocateToken = $_GET['advocate_token'];
+$_SESSION['strAdvocateToken'] = $strAdvocateToken;
+
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();
-$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks();
-$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport();
-$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport();
-$objAdvocate = $api->getAdvocate();
-$arrRedemptionRequests = $api->getRedemptionRequests();
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
+$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
+$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
+$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
+$objAdvocate = $api->getAdvocate($strAdvocateToken);
+$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
+$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +37,7 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
         <div class="container">
             <div class="header">
                 <ul class="nav nav-pills pull-right">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <h3 class="text-muted">GRPHPSandbox</h3>
             </div>
@@ -77,8 +80,7 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
 
             <div class="footer">
                 <ul class="nav nav-pills pull-left">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <div style="clear: both; text-align: center;">
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>

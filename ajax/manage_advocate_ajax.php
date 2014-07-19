@@ -11,10 +11,14 @@ class manage_advocate_ajax {
 
     public function __construct($method = NULL) {
 
-        session_start();
+        if (file_exists(__DIR__ . '/../config/config.php')) {
+            require __DIR__ . '/../config/config.php';
+            $strUsername = $apiConfig['gr_username'];
+            $strAuthToken = $apiConfig['gr_auth_token'];
+        }
 
         // Create a new GRPHPAPIClient object
-        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient('alain@hlasolutionsgroup.com', '8450103c06dbd58add9d047d761684096ac560ca');
+        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
 
         // find post data
         $data = $_POST['data'];
@@ -51,8 +55,6 @@ class manage_advocate_ajax {
             $arrParts = explode('/', $strLocation);
             $strAdvocateToken = end($arrParts);
 
-            $_SESSION['strAdvocateToken'] = $strAdvocateToken;
-
             //Updating the advocate currency
             $arrParams = array('currency_code' => 'USD');
             $objResponse = $this->objGeniusReferralsAPIClient->patchAdvocate('genius-referrals', $strAdvocateToken, $arrParams);
@@ -85,30 +87,29 @@ class manage_advocate_ajax {
             $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 50, $filters);
         else
             $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 50);
+
         $arrAdvocate = json_decode($arrAdvocate);
         $this->success($arrAdvocate->data->results);
     }
 
     public function createReferral($data) {
 
-        if (!empty($_SESSION['strAdvocateToken'])) {
 
-            $strAdvocateToken = $_SESSION['strAdvocateToken'];
-            $strFilters = array();
-            $strFilters['email'] = $data['email_advocate_referrer'];
+        $strAdvocateToken = $data['advocate_token'];
+        $strFilters = array();
+        $strFilters['email'] = $data['email_advocate_referrer'];
 
-            $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referral', 1, 1, $strFilters);
-            $objAdvocate = json_decode($objAdvocate);
-            
-            $aryReferrals = array();
-            $aryReferrals['referred_advocate_token'] = $strAdvocateToken;
-            $aryReferrals['referral_origin_slug'] = $data['referral_origin_slug'];
-            $aryReferrals['campaign_slug'] = $data['campaign_slug'];
-            $aryReferrals['http_referer'] = $_SERVER['HTTP_REFERER'];
+        $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referral', 1, 1, $strFilters);
+        $objAdvocate = json_decode($objAdvocate);
 
-            $objResponse = $this->objGeniusReferralsAPIClient->postReferral('genius-referral', $objAdvocate->data->results[0]->token, $aryReferrals);
-            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
-        }
+        $aryReferrals = array();
+        $aryReferrals['referred_advocate_token'] = $strAdvocateToken;
+        $aryReferrals['referral_origin_slug'] = $data['referral_origin_slug'];
+        $aryReferrals['campaign_slug'] = $data['campaign_slug'];
+        $aryReferrals['http_referer'] = $_SERVER['HTTP_REFERER'];
+
+        $objResponse = $this->objGeniusReferralsAPIClient->postReferral('genius-referral', $objAdvocate->data->results[0]->token, $aryReferrals);
+        $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
         if ($intResponseCode == '201') {
             $this->success(array('OK'));
         }

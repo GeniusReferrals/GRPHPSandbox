@@ -10,8 +10,14 @@ class manage_advocate_api {
 
     public function __construct() {
 
+        if (file_exists(__DIR__ . '/../config/config.php')) {
+            require __DIR__ . '/../config/config.php';
+            $strUsername = $apiConfig['gr_username'];
+            $strAuthToken = $apiConfig['gr_auth_token'];
+        }
+        
         // Create a new GRPHPAPIClient object
-        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient('alain@hlasolutionsgroup.com', '8450103c06dbd58add9d047d761684096ac560ca');
+        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
     }
 
     public function getAdvocates() {
@@ -26,7 +32,7 @@ class manage_advocate_api {
     }
 
     public function getCampaigns() {
-        
+
         try {
             $arrCampaigns = $this->objGeniusReferralsAPIClient->getCampaigns('genius-referrals');
             $arrCampaigns = json_decode($arrCampaigns);
@@ -34,5 +40,6 @@ class manage_advocate_api {
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
-    }    
+    }
+
 }

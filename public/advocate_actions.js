@@ -36,10 +36,10 @@ $(document).ready(function() {
         var isValid = validateCheckupBonus();
         if (isValid)
         {
+            advocate_token = $('input#advocate_token').val();
             reference = $('#checkupBonusModal #reference').val();
             amount_payments = $('#checkupBonusModal #amount_payments').val();
             payment_amount = $('#checkupBonusModal #payment_amount').val();
-            advocate_token = $('#checkupBonusModal #advocate_token').val();
 
             var request = $.ajax({
                 type: "POST",
@@ -117,7 +117,7 @@ $(document).ready(function() {
             reference = $('#processBonusModal #reference').val();
             amount_payments = $('#processBonusModal #amount_payments').val();
             payment_amount = $('#processBonusModal #payment_amount').val();
-            advocate_token = $('#processBonusModal #advocate_token').val();
+            advocate_token = $('input#advocate_token').val();
 
             var request = $.ajax({
                 type: "POST",

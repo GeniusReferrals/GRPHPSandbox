@@ -29,7 +29,6 @@ $arrAdvocate = $api->getAdvocates();
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li class="active"><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
                 </ul>
                 <h3 class="text-muted">GRPHPSandbox</h3>
             </div>
@@ -122,6 +121,9 @@ $arrAdvocate = $api->getAdvocates();
                                 <td><?php echo isset($objAdvocate->_campaign_contract->name) ? $objAdvocate->_campaign_contract->name : '' ?></td>
                                 <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
                                 <td class="actions">
+                                    <a id="<?php echo $objAdvocate->token ?>" class="refer_friend_program" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program" data-toggle="modal">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
                                     <a id="<?php echo $objAdvocate->token ?>" class="create_referral" href="#" title="Create referrer" data-toggle="modal">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
@@ -146,8 +148,7 @@ $arrAdvocate = $api->getAdvocates();
 
             <div class="footer">
                 <ul class="nav nav-pills pull-left">
-                    <li><a href="index.php">Manage advocate</a></li>
-                    <li><a href="refer_friend_program.php">Refer a friend program</a></li>
+                    <li class="active"><a href="index.php">Manage advocate</a></li>
                 </ul>
                 <div style="clear: both; text-align: center;">
                     <p>Copyright ©2014 GRPHPSandbox. All rights reserved.</p>

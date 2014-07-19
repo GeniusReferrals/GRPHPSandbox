@@ -13,8 +13,14 @@ class refer_friend_program_ajax {
 
         session_start();
 
+        if (file_exists(__DIR__ . '/../config/config.php')) {
+            require __DIR__ . '/../config/config.php';
+            $strUsername = $apiConfig['gr_username'];
+            $strAuthToken = $apiConfig['gr_auth_token'];
+        }
+
         // Create a new GRPHPAPIClient object
-        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient('alain@hlasolutionsgroup.com', '8450103c06dbd58add9d047d761684096ac560ca');
+        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
 
         // find post data
         $data = $_POST['data'];

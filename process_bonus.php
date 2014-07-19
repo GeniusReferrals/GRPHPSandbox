@@ -64,7 +64,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <input type="hidden" name="advocate_token" id="advocate_token" value="<?php echo $_GET['advocate_token'] ?>">
                     </div>
                 </div>
