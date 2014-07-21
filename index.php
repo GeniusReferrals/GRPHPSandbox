@@ -19,8 +19,8 @@ $arrAdvocate = $api->getAdvocates();
 
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
-        <link href="public/styles.css" rel="stylesheet">
-
+        <link href="public/css/styles.css" rel="stylesheet">
+        
     </head>
 
     <body>
@@ -157,15 +157,15 @@ $arrAdvocate = $api->getAdvocates();
 
         </div> <!-- /container -->
 
-        <script src="public/jquery-2.0.3.min.js"></script>
+        <script src="public/js/jquery-2.0.3.min.js"></script>
         
-        <script src="public/jquery.validate.min.js"></script>
+        <script src="public/js/jquery.validate.min.js"></script>
 
-        <script src="public/jquery.validate.defaults.js"></script>
+        <script src="public/js/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
-        <script src="public/date.format.js"></script>
+        <script src="public/js/date.format.js"></script>
         
         <script src="public/manage_advocate.js"></script>
 

@@ -1,4 +1,18 @@
 $(document).ready(function() {
+    
+    $("#advocate_referrer").autocomplete({
+        source: function(request, response) {
+            url: 'ajax/manage_advocate_ajax.php?method=searchAdvocateReferer',
+            $.getJSON(url, {
+                email: request.term
+            }, function(data, status, xhr) {
+                response(data.message);
+            });
+        },
+        focus: function() {
+            return false;
+        }
+    });
 
     $('#btn_create_referral').click(function(e) {
         e.preventDefault();

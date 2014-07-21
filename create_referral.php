@@ -2,6 +2,7 @@
 include './api/manage_advocate_api.php';
 $api = new manage_advocate_api();
 $arrCampaigns = $api->getCampaigns();
+$arrReferralOrigins = $api->getReferralOrigins();
 ?>
 
 <div id="referrer-advocate-details" class="modal-dialog">
@@ -23,7 +24,7 @@ $arrCampaigns = $api->getCampaigns();
                             <select id="campaing" name="campaing" class="form-control">
                                 <option value="">Choose</option>
                                 <?php foreach ($arrCampaigns as $objCampaign) { ?>
-                                <option value="<?php echo $objCampaign->slug ?>"><?php echo $objCampaign->name ?></option>
+                                    <option value="<?php echo $objCampaign->slug ?>"><?php echo $objCampaign->name ?></option>
                                 <?php } ?>  
                             </select>
                         </div>
@@ -31,9 +32,9 @@ $arrCampaigns = $api->getCampaigns();
                             <label class="control-label required" for="network">Network *:</label>
                             <select id="network" name="network" class="form-control">
                                 <option value="">Choose</option>
-                                <?php //foreach ($arrNetwork as $objNetwork) { ?>
-                                <option value="<?php //echo $objNetwork->slug ?>"><?php //echo $objNetwork->name ?></option>
-                                <?php //} ?>   
+                                <?php foreach ($arrReferralOrigins as $objReferralOrigins) { ?>
+                                    <option value="<?php echo $objReferralOrigins->slug ?>"><?php echo $objReferralOrigins->name ?></option>
+                                <?php } ?>   
                             </select>
                         </div>
                     </div>
@@ -47,5 +48,21 @@ $arrCampaigns = $api->getCampaigns();
         </form>
     </div>
 </div>
+
+<link href="public/css/jquery.ui.theme.css" rel="stylesheet">
+
+<link href="public/css/jquery.ui.menu.css" rel="stylesheet">
+
+<link href="public/css/jquery.ui.autocomplete.css" rel="stylesheet">
+
+<script src="public/js/jquery.ui.core.js"></script>
+
+<script src="public/js/jquery.ui.widget.js"></script>
+
+<script src="public/js/jquery.ui.position.js"></script>
+
+<script src="public/js/jquery.ui.menu.js"></script>
+
+<script src="public/js/jquery.ui.autocomplete.js"></script>
 
 <script src="public/advocate_actions.js"></script>

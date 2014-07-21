@@ -15,7 +15,7 @@ class manage_advocate_api {
             $strUsername = $apiConfig['gr_username'];
             $strAuthToken = $apiConfig['gr_auth_token'];
         }
-        
+
         // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
     }
@@ -36,6 +36,17 @@ class manage_advocate_api {
         try {
             $arrCampaigns = $this->objGeniusReferralsAPIClient->getCampaigns('genius-referrals');
             $arrCampaigns = json_decode($arrCampaigns);
+            return $arrCampaigns->data->results;
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+    }
+
+    public function getReferralOrigins() {
+
+        try {
+            $arrReferralOrigins = $this->objGeniusReferralsAPIClient->getReferralOrigins();
+            $arrReferralOrigins = json_decode($arrReferralOrigins);
             return $arrCampaigns->data->results;
         } catch (Exception $exc) {
             echo $exc->getMessage();

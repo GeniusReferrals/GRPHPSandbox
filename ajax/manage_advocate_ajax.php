@@ -63,7 +63,7 @@ class manage_advocate_ajax {
             if ($intResponseCode1 == '204') {
                 $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strAdvocateToken);
                 $objAdvocate = json_decode($objAdvocate);
-                $this->success($objAdvocate->data);
+                return $this->success($objAdvocate->data);
             }
         }
     }
@@ -89,7 +89,23 @@ class manage_advocate_ajax {
             $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 50);
 
         $arrAdvocate = json_decode($arrAdvocate);
-        $this->success($arrAdvocate->data->results);
+        return $this->success($arrAdvocate->data->results);
+    }
+
+    public function searchAdvocateReferer($data) {
+
+        $filters = "email::" . $data['email'];
+
+        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates('genius-referrals', 1, 50, $filters);
+
+        $arrEmail = array();
+        if (!empty($arrAdvocate->data->results)) {
+            foreach ($arrAdvocate->data->results as $objAdvocate) {
+                $arrEmail[] = $objAdvocate->email;
+            }
+        }
+        $arrEmail = json_decode($arrEmail);
+        return $this->success($arrEmail);
     }
 
     public function createReferral($data) {
@@ -111,7 +127,7 @@ class manage_advocate_ajax {
         $objResponse = $this->objGeniusReferralsAPIClient->postReferral('genius-referral', $objAdvocate->data->results[0]->token, $aryReferrals);
         $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
         if ($intResponseCode == '201') {
-            $this->success(array('OK'));
+            return $this->success(array('OK'));
         }
     }
 
