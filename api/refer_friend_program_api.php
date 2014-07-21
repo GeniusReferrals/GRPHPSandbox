@@ -7,17 +7,25 @@ use GeniusReferrals\GRPHPAPIClient;
 class refer_friend_program_api {
 
     protected $objGeniusReferralsAPIClient;
+    protected $strUsername;
+    protected $strAuthToken;
+    protected $strAccount;
+    protected $strCampaign;
+    protected $strWidgetsPackage;
 
     public function __construct() {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
             require __DIR__ . '/../config/config.php';
-            $strUsername = $apiConfig['gr_username'];
-            $strAuthToken = $apiConfig['gr_auth_token'];
+            $this->strUsername = $apiConfig['gr_username'];
+            $this->strAuthToken = $apiConfig['gr_auth_token'];
+            $this->strAccount = $apiConfig['gr_rfp_account'];
+            $this->strCampaign = $apiConfig['gr_rfp_campaign'];
+            $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
-
+        
         // Create a new GRPHPAPIClient object
-        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
+        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
     }
 
     /**
@@ -26,10 +34,10 @@ class refer_friend_program_api {
     public function getAdvocatesShareLinks($strGRAdvocateToken) {
 
         try {
-            $arrAdvocatesShareLinks = $this->objGeniusReferralsAPIClient->getAdvocatesShareLinks('genius-referrals', $strGRAdvocateToken);
+            $arrAdvocatesShareLinks = $this->objGeniusReferralsAPIClient->getAdvocatesShareLinks($this->strAccount, $strGRAdvocateToken);
             $arrAdvocatesShareLinks = json_decode($arrAdvocatesShareLinks);
 
-            $codeContents = $arrAdvocatesShareLinks->data->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'};
+            $codeContents = $arrAdvocatesShareLinks->data->{$this->strCampaign}->{$this->strWidgetsPackage}->{'personal'};
             if (file_exists(__DIR__ . '\..\library\phpqrcode\qrlib.php')) {
                 require __DIR__ . '\..\library\phpqrcode\qrlib.php';
                 $tempDir = __DIR__ . '\..\uploads/' . $strGRAdvocateToken . '.png';
@@ -73,10 +81,10 @@ class refer_friend_program_api {
     /**
      * tab Redeem your bonuses
      */
-    public function getAdvocate() {
+    public function getAdvocate($strGRAdvocateToken) {
 
         try {
-            $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
+            $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate($this->strAccount, $strGRAdvocateToken);
             $objAdvocate = json_decode($objAdvocate);
             return $objAdvocate->data;
         } catch (Exception $exc) {
@@ -87,10 +95,10 @@ class refer_friend_program_api {
     public function getRedemptionRequests($strGRAdvocateToken) {
 
         try {
-            $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate('genius-referrals', $strGRAdvocateToken);
+            $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate($this->strAccount, $strGRAdvocateToken);
             $objAdvocate = json_decode($objAdvocate);
 
-            $arrRedemptionRequests = $this->objGeniusReferralsAPIClient->getRedemptionRequests('genius-referrals', 1, 10, 'email::' . $objAdvocate->data->email . '');
+            $arrRedemptionRequests = $this->objGeniusReferralsAPIClient->getRedemptionRequests($this->strAccount, 1, 10, 'email::' . $objAdvocate->data->email . '');
             $arrRedemptionRequests = json_decode($arrRedemptionRequests);
             return $arrRedemptionRequests->data->results;
         } catch (Exception $exc) {
@@ -101,7 +109,7 @@ class refer_friend_program_api {
     public function getAdvocatePaymentMethods($strGRAdvocateToken) {
 
         try {
-            $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
+            $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
             $aryPaymentMethods = json_decode($aryPaymentMethods);
             return $aryPaymentMethods->data->results;
         } catch (Exception $exc) {

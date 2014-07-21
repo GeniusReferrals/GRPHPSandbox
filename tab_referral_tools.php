@@ -1,3 +1,11 @@
+<?php
+if (file_exists(__DIR__ . '/../config/config.php')) {
+    require __DIR__ . '/../config/config.php';
+    $strCampaign = $apiConfig['gr_rfp_campaign'];
+    $strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
+}
+?>
+
 <div class="col-xs-12" style="padding-top: 15px;">
     <div style="padding-bottom: 15px;">
         <h3>Use these tools to refer our services</h3>
@@ -14,27 +22,27 @@
                 </div>
                 <div class="col-xs-12" style="margin-bottom: 15px;">
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'facebook-like'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'facebook-like'} : ''?>">
+                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'facebook-like'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'facebook-like'} : '' ?>">
                             <img src="public/images/social/facebook.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'twitter-post'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'twitter-post'} : ''?>">
+                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'twitter-post'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'twitter-post'} : '' ?>">
                             <img src="public/images/social/twitter.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'google-1'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'google-1'} : ''?>">
+                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'google-1'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'google-1'} : '' ?>">
                             <img src="public/images/social/googleplus_red.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'linkedin-post'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'linkedin-post'} : ''?>">
+                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'linkedin-post'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'linkedin-post'} : '' ?>">
                             <img src="public/images/social/linkedin.png" class="img-rounded">
                         </a>
                     </div>
                     <div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'pin-it'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'pin-it'} : ''?>">
+                        <a href="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'pin-it'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'pin-it'} : '' ?>">
                             <img src="public/images/social/pinterest.png" class="img-rounded">
                         </a>
                     </div>
@@ -101,7 +109,7 @@
                     <p style="display: inline;"><strong>Share your personal URL</strong></p>
                 </div>
                 <div class="col-xs-12" style="margin-bottom: 15px;">
-                    <input id="personal_url" class="form-control" type="text" name="personal_url" value="https://<?php echo isset($arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'}) ? $arrAdvocatesShareLinks->{'get-15-for-90-days-1'}->{'genius-referrals-default-2'}->{'personal'} : ''?>">
+                    <input id="personal_url" class="form-control" type="text" name="personal_url" value="https://<?php echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'personal'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'personal'} : '' ?>">
                 </div>
             </div>
         </div>

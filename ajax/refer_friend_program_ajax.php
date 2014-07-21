@@ -8,6 +8,11 @@ class refer_friend_program_ajax {
 
     protected $response;
     protected $objGeniusReferralsAPIClient;
+    protected $strUsername;
+    protected $strAuthToken;
+    protected $strAccount;
+    protected $strCampaign;
+    protected $strWidgetsPackage;
 
     public function __construct($method = NULL) {
 
@@ -15,12 +20,15 @@ class refer_friend_program_ajax {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
             require __DIR__ . '/../config/config.php';
-            $strUsername = $apiConfig['gr_username'];
-            $strAuthToken = $apiConfig['gr_auth_token'];
+            $this->strUsername = $apiConfig['gr_username'];
+            $this->strAuthToken = $apiConfig['gr_auth_token'];
+            $this->strAccount = $apiConfig['gr_rfp_account'];
+            $this->strCampaign = $apiConfig['gr_rfp_campaign'];
+            $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
 
         // Create a new GRPHPAPIClient object
-        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($strUsername, $strAuthToken);
+        $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
 
         // find post data
         $data = $_POST['data'];
@@ -51,7 +59,7 @@ class refer_friend_program_ajax {
 
                 if ($boolPaypalActive === '1') {
 
-                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50, 'is_active::true');
+                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
                     $arrPaymentMethodsTrue = json_decode($response);
 
                     if (!empty($arrPaymentMethodsTrue->data->results)) {
@@ -59,7 +67,7 @@ class refer_friend_program_ajax {
                             $aryPaymentMethodData = array('advocate_payment_method' => array(
                                     'username' => $obj->username,
                                     'description' => $obj->description));
-                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod('genius-referrals', $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
+                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
                         }
                     }
                 }
@@ -73,11 +81,11 @@ class refer_friend_program_ajax {
                             'username' => $strPaypalUsername,
                             'description' => $strPaypalDescription));
                 }
-                $objResponse = $this->objGeniusReferralsAPIClient->postAdvocatePaymentMethod('genius-referrals', $strGRAdvocateToken, $aryPaymentMethodData);
+                $objResponse = $this->objGeniusReferralsAPIClient->postAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $aryPaymentMethodData);
                 $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
                 if ($intResponseCode == '201') {
-                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
+                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
                     $aryPaymentMethods = json_decode($aryPaymentMethods);
                     return $aryPaymentMethods->data->results;
                 }
@@ -100,7 +108,7 @@ class refer_friend_program_ajax {
                 $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
 
                 if ($boolPaypalActive === '1') {
-                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50, 'is_active::true');
+                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
                     $arrPaymentMethodsTrue = json_decode($response);
 
                     if (!empty($arrPaymentMethodsTrue->data->results)) {
@@ -108,7 +116,7 @@ class refer_friend_program_ajax {
                             $aryPaymentMethodData = array('advocate_payment_method' => array(
                                     'username' => $obj->username,
                                     'description' => $obj->description));
-                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod('genius-referrals', $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
+                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
                         }
                     }
                 }
@@ -122,11 +130,11 @@ class refer_friend_program_ajax {
                             'username' => $strPaypalUsername,
                             'description' => $strPaypalDescription));
                 }
-                $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod('genius-referrals', $strGRAdvocateToken, $intPaymentMethodId, $aryPaymentMethodData);
+                $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $intPaymentMethodId, $aryPaymentMethodData);
                 $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
                 if ($intResponseCode == '204') {
-                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods('genius-referrals', $strGRAdvocateToken, 1, 50);
+                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
                     $aryPaymentMethods = json_decode($aryPaymentMethods);
                     return $aryPaymentMethods->data->results;
                 }
@@ -155,7 +163,7 @@ class refer_friend_program_ajax {
         ));
 
         try {
-            $objResponse = $this->objGeniusReferralsAPIClient->postRedemptionRequest('genius-referrals', $arrRedemptionRequest);
+            $objResponse = $this->objGeniusReferralsAPIClient->postRedemptionRequest($this->strAccount, $arrRedemptionRequest);
             $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
             if ($intResponseCode == '201') {
@@ -165,7 +173,7 @@ class refer_friend_program_ajax {
                 $arrParts = explode('/', $strLocation);
                 $intRedemptionRequestId = end($arrParts);
 
-                $objRedemptionRequest = $this->objGeniusReferralsAPIClient->getRedemptionRequest('genius-referrals', $intRedemptionRequestId);
+                $objRedemptionRequest = $this->objGeniusReferralsAPIClient->getRedemptionRequest($this->strAccount, $intRedemptionRequestId);
                 $objRedemptionRequest = json_decode($objRedemptionRequest);
                 return $objRedemptionRequest->data;
             }
