@@ -23,7 +23,7 @@ class refer_friend_program_api {
             $this->strCampaign = $apiConfig['gr_rfp_campaign'];
             $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
-        
+
         // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
     }
@@ -106,8 +106,9 @@ class refer_friend_program_api {
         }
     }
 
-    public function getAdvocatePaymentMethods($strGRAdvocateToken) {
-
+    public function getAdvocatePaymentMethods() {
+        session_start();
+        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
         try {
             $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
             $aryPaymentMethods = json_decode($aryPaymentMethods);

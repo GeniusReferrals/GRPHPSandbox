@@ -1,17 +1,16 @@
 <?php
-//$strAdvocateToken = $_GET['advocate_token'];
-//$_SESSION['strAdvocateToken'] = $strAdvocateToken;
 session_start();
-$_SESSION['strAdvocateToken'] = '312313131313131';
+$strAdvocateToken = $_GET['advocate_token'];
+$_SESSION['strAdvocateToken'] = $strAdvocateToken;
 
-//include './api/refer_friend_program_api.php';
-//$api = new refer_friend_program_api();
-//$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
-//$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
-//$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
-//$objAdvocate = $api->getAdvocate($strAdvocateToken);
-//$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
-//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
+include './api/refer_friend_program_api.php';
+$api = new refer_friend_program_api();
+$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
+$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
+$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
+$objAdvocate = $api->getAdvocate($strAdvocateToken);
+$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
+$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 ?>
 
 <!DOCTYPE html>

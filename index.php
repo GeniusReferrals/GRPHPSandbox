@@ -1,7 +1,7 @@
 <?php
-//include './api/manage_advocate_api.php';
-//$api = new manage_advocate_api();
-//$arrAdvocate = $api->getAdvocates();
+include './api/manage_advocate_api.php';
+$api = new manage_advocate_api();
+$arrAdvocate = $api->getAdvocates();
 ?>
 
 <!DOCTYPE html>
