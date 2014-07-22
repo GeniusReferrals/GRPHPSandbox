@@ -1,9 +1,9 @@
 <?php
-if (file_exists(__DIR__ . '/../config/config.php')) {
-    require __DIR__ . '/../config/config.php';
-    $strCampaign = $apiConfig['gr_rfp_campaign'];
-    $strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
-}
+//if (file_exists(__DIR__ . '/../config/config.php')) {
+//    require __DIR__ . '/../config/config.php';
+//    $strCampaign = $apiConfig['gr_rfp_campaign'];
+//    $strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
+//}
 ?>
 
 <div class="col-xs-12" style="padding-top: 15px;">
@@ -120,7 +120,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                     <p style="display: inline;"><strong>Print this QR code</strong></p>
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <img src="uploads/<?php echo $_SESSION['strAdvocateToken'] ?>.png">
+                    <!--<img src="uploads/<?php //echo $_SESSION['strAdvocateToken'] ?>.png">-->
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <p><strong>Use this QR code to refer our service on:</strong></p>

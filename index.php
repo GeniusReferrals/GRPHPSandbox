@@ -1,7 +1,7 @@
 <?php
-include './api/manage_advocate_api.php';
-$api = new manage_advocate_api();
-$arrAdvocate = $api->getAdvocates();
+//include './api/manage_advocate_api.php';
+//$api = new manage_advocate_api();
+//$arrAdvocate = $api->getAdvocates();
 ?>
 
 <!DOCTYPE html>
@@ -167,7 +167,7 @@ $arrAdvocate = $api->getAdvocates();
 
         <script src="public/js/date.format.js"></script>
         
-        <script src="public/manage_advocate.js"></script>
+        <script src="public/js/manage_advocate.js"></script>
 
     </body>
 </html>

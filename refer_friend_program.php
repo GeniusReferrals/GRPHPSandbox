@@ -1,16 +1,17 @@
 <?php
+//$strAdvocateToken = $_GET['advocate_token'];
+//$_SESSION['strAdvocateToken'] = $strAdvocateToken;
+session_start();
+$_SESSION['strAdvocateToken'] = '312313131313131';
 
-$strAdvocateToken = $_GET['advocate_token'];
-$_SESSION['strAdvocateToken'] = $strAdvocateToken;
-
-include './api/refer_friend_program_api.php';
-$api = new refer_friend_program_api();
-$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
-$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
-$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
-$objAdvocate = $api->getAdvocate($strAdvocateToken);
-$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
+//include './api/refer_friend_program_api.php';
+//$api = new refer_friend_program_api();
+//$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
+//$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
+//$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
+//$objAdvocate = $api->getAdvocate($strAdvocateToken);
+//$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
+//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
-        <link href="public/styles.css" rel="stylesheet">
+        <link href="public/css/styles.css" rel="stylesheet">
 
     </head>
 
@@ -87,21 +88,36 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
                 </div>
             </div>
 
+            <input type="hidden" id="data" data-amcharts-images="public/images/amcharts/"/>
+            <input type="hidden" id="averages_share_daily_participation" data-averages-share=""/>
+            <input type="hidden" id="totals_share_daily_participation" data-totals-share=""/>
+            <input type="hidden" id="averages_click_daily_participation" data-averages-click=""/>
+            <input type="hidden" id="totals_click_daily_participation" data-totals-click=""/>
+            <input type="hidden" id="averages_daily_participation" data-averages-participation=""/>
+            <input type="hidden" id="totals_daily_participation" data-totals-participation=""/>
+            <input type="hidden" id="averages_bonuses_daily_given" data-averages-bonuses=""/>
+            <input type="hidden" id="totals_bonuses_daily_given" data-totals-bonuses=""/>
+
         </div> <!-- /container -->
 
-        <script src="public/jquery-2.0.3.min.js"></script>
+        <script src="public/js/jquery-2.0.3.min.js"></script>
 
-        <script src="public/jquery.validate.min.js"></script>
-        
-        <script src="public/jquery.validate.defaults.js"></script>
+        <script src="public/js/jquery.validate.min.js"></script>
+
+        <script src="public/js/jquery.validate.defaults.js"></script>
 
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
-        
-        <script src="public/date.format.js"></script>
 
-        <script src="public/refer_friend_program.js"></script>
+        <script src="public/js/date.format.js"></script>
         
-        <script src="public/paypal_account_list.js"></script>
+        <script src="public/js/amcharts/amcharts.js"></script>
+        <script src="public/js/amcharts/pie.js"></script>
+        <script src="public/js/amcharts/serial.js"></script>
+        <script src="public/js/charts.js"></script>
+        
+        <script src="public/js/refer_friend_program.js"></script>
+
+        <script src="public/js/paypal_account_list.js"></script>
 
     </body>
 </html>
