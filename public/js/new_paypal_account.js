@@ -28,7 +28,7 @@ $(document).ready(function() {
             stepRequest.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
-                    $('#paypal_account').append('<option value="' + data.message.username + '">' + data.message.username + '</option>');
+                    $('#paypal_account').append('<option value="' + $('#paypal_username').val() + '">' + $('#paypal_username').val() + '</option>');
 
                     $('#table_payment td').remove();
                     $.each(data.message, function(i, elem) {

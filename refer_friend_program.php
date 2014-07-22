@@ -1,5 +1,4 @@
 <?php
-session_start();
 $strAdvocateToken = $_GET['advocate_token'];
 $_SESSION['strAdvocateToken'] = $strAdvocateToken;
 
@@ -108,12 +107,12 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="public/js/date.format.js"></script>
-        
+
         <script src="public/js/amcharts/amcharts.js"></script>
         <script src="public/js/amcharts/pie.js"></script>
         <script src="public/js/amcharts/serial.js"></script>
         <script src="public/js/charts.js"></script>
-        
+
         <script src="public/js/refer_friend_program.js"></script>
 
         <script src="public/js/paypal_account_list.js"></script>

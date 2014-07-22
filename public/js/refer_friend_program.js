@@ -1,6 +1,13 @@
 
 $(document).ready(function() {
 
+    $('select#redemption_type').change(function() {
+        if ($(this).val() == 'pay-out')
+            $('#container_paypal_account').attr('style', 'display:block');
+        else
+            $('#container_paypal_account').attr('style', 'display:none');
+    });
+
     $('#paypal_account_actions').click(function(e) {
         var stepRequest = $.ajax({
             type: "GET",
@@ -180,7 +187,7 @@ $(document).ready(function() {
 
                 generateChartPie("pie-chart-bonuses", $('#averages_bonuses_daily_given').data('averages-bonuses'));
                 generateChartSerial("serial-chart-bonuses", $('#totals_bonuses_daily_given').data('totals-bonuses'));
-                
+
                 flag_bonuses_given = false;
             });
         }

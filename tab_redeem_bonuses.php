@@ -18,10 +18,14 @@
                                 <div class="form-group">
                                     <label for="redemption_type" class="col-sm-5 control-label">Redemption type:</label>
                                     <div class="col-xs-7">
-                                        <input type="text" class="form-control" id="redemption_type" name="redemption_type">
+                                        <select id="redemption_type" name="redemption_type" class="form-control">
+                                            <option value="">Choose</option>
+                                            <option value="pay-out">pay-out</option>
+                                            <option value="credit">credit</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="container_paypal_account" style="display: none;">
                                     <label for="paypal_account" class="col-sm-5 control-label">Paypal account:</label>
                                     <div class="col-xs-7">
                                         <select id="paypal_account" name="paypal_account" class="form-control">
@@ -59,11 +63,11 @@
                     <div class="panel-heading" style="line-height: 2">
                         <div style="height: 94px;">
                             <h5><strong>Redeemable amount:</strong></h5>
-                            <h3 style="color: #5CB85C;"><strong><?php isset($objAdvocate->unclaimed_balance) ? $objAdvocate->unclaimed_balance : '' ?></strong></h3>
+                            <h3 style="color: #5CB85C;"><strong><?php echo isset($objAdvocate->unclaimed_balance) ? $objAdvocate->unclaimed_balance : '' ?></strong></h3>
                         </div>
                         <div style="height: 93px;">
                             <h5><strong>Redeemed amount:</strong></h5>
-                            <h3 style="color: #D9534F;"><strong><?php isset($objAdvocate->claimed_balance) ? $objAdvocate->claimed_balance : '' ?></strong></h3>
+                            <h3 style="color: #D9534F;"><strong><?php echo isset($objAdvocate->claimed_balance) ? $objAdvocate->claimed_balance : '' ?></strong></h3>
                         </div>
                     </div>
                 </div>

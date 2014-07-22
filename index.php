@@ -122,7 +122,7 @@ $arrAdvocate = $api->getAdvocates();
                                 <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
                                 <td class="actions">
                                     <a id="<?php echo $objAdvocate->token ?>" class="refer_friend_program" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program" data-toggle="modal">
-                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <span class="glyphicon glyphicon-chevron-down"></span>
                                     </a>
                                     <a id="<?php echo $objAdvocate->token ?>" class="create_referral" href="#" title="Create referrer" data-toggle="modal">
                                         <span class="glyphicon glyphicon-pencil"></span>
