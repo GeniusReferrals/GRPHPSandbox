@@ -14,7 +14,6 @@ class manage_advocate_ajax {
     protected $strCampaign;
     protected $strWidgetsPackage;
 
-
     public function __construct($method = NULL) {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
@@ -106,6 +105,7 @@ class manage_advocate_ajax {
         $filters = "email::" . $data['email'];
 
         $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
+        $arrAdvocate = json_decode($arrAdvocate);
 
         $arrEmail = array();
         if (!empty($arrAdvocate->data->results)) {
@@ -113,8 +113,8 @@ class manage_advocate_ajax {
                 $arrEmail[] = $objAdvocate->email;
             }
         }
-        $arrEmail = json_decode($arrEmail);
-        return $this->success($arrEmail);
+
+        die(json_encode($arrEmail));
     }
 
     public function createReferral($data) {
@@ -127,13 +127,14 @@ class manage_advocate_ajax {
         $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 1, $strFilters);
         $objAdvocate = json_decode($objAdvocate);
 
-        $aryReferrals = array();
-        $aryReferrals['referred_advocate_token'] = $strAdvocateToken;
-        $aryReferrals['referral_origin_slug'] = $data['referral_origin_slug'];
-        $aryReferrals['campaign_slug'] = $data['campaign_slug'];
-        $aryReferrals['http_referer'] = $_SERVER['HTTP_REFERER'];
+        $arrReferral = array("referral" => array(
+                "referred_advocate_token" => $strAdvocateToken,
+                "referral_origin_slug" => $data['referral_origin_slug'],
+                "campaign_slug" => $data['campaign_slug'],
+                "http_referer" => $_SERVER['HTTP_REFERER']
+        ));
 
-        $objResponse = $this->objGeniusReferralsAPIClient->postReferral($this->strAccount, $objAdvocate->data->results[0]->token, $aryReferrals);
+        $objResponse = $this->objGeniusReferralsAPIClient->postReferral($this->strAccount, $objAdvocate->data->results[0]->token, $arrReferral);
         $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
         if ($intResponseCode == '201') {
             return $this->success(array('OK'));
@@ -177,12 +178,11 @@ class manage_advocate_ajax {
     public function checkupBonus($data) {
 
         //preparing the data to be sent on the request
-        $arrReferral = array("bonus" => array(
-                "advocate_token" => $data['advocate_token'],
-                "reference" => $data['reference'],
-                "amount_of_payments" => $data['amount_payments'],
-                "payment_amount" => $data['payment_amount']
-        ));
+        $arrReferral = array("advocate_token" => $data['advocate_token'],
+            "reference" => $data['reference'],
+            "amount_of_payments" => $data['amount_payments'],
+            "payment_amount" => $data['payment_amount']
+        );
 
         //trying to give a bonus to the advocate's referrer
         $responseCheckup = $this->objGeniusReferralsAPIClient->getBonusesCheckup($this->strAccount, $arrReferral);

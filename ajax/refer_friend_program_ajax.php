@@ -158,16 +158,27 @@ class refer_friend_program_ajax {
         $strRedemptionType = $data['redemption_type'];
         $strPaypalAccount = $data['paypal_account'];
 
-        //preparing the data to be sent on the request
-        $arrRedemptionRequest = array("redemption_request" => array(
-                "advocate_token" => $strGRAdvocateToken,
-                "request_status_slug" => "requested",
-                "request_action_slug" => $strRedemptionType,
-                "currency_code" => "USD",
-                "amount" => $intAmountRedeem,
-                "description" => "cash o pay-out",
-                "advocates_paypal_username" => $strPaypalAccount
-        ));
+        if ($strPaypalAccount != '') {
+
+            $arrRedemptionRequest = array("redemption_request" => array(
+                    "advocate_token" => $strGRAdvocateToken,
+                    "request_status_slug" => "requested",
+                    "request_action_slug" => $strRedemptionType,
+                    "currency_code" => "USD",
+                    "amount" => $intAmountRedeem,
+                    "description" => "cash o pay-out",
+                    "advocates_paypal_username" => $strPaypalAccount
+            ));
+        } else {
+            $arrRedemptionRequest = array("redemption_request" => array(
+                    "advocate_token" => $strGRAdvocateToken,
+                    "request_status_slug" => "requested",
+                    "request_action_slug" => $strRedemptionType,
+                    "currency_code" => "USD",
+                    "amount" => $intAmountRedeem,
+                    "description" => "cash o pay-out",
+            ));
+        }
 
         try {
             $objResponse = $this->objGeniusReferralsAPIClient->postRedemptionRequest($this->strAccount, $arrRedemptionRequest);

@@ -55,7 +55,7 @@ class manage_advocate_api {
         try {
             $arrReferralOrigins = $this->objGeniusReferralsAPIClient->getReferralOrigins();
             $arrReferralOrigins = json_decode($arrReferralOrigins);
-            return $arrCampaigns->data->results;
+            return $arrReferralOrigins->data;
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }

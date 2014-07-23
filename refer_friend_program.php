@@ -1,6 +1,7 @@
 <?php
+session_start();
 $strAdvocateToken = $_GET['advocate_token'];
-$_SESSION['strAdvocateToken'] = $strAdvocateToken;
+$_SESSION['advocate_token'] = $strAdvocateToken;
 
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();

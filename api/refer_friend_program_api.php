@@ -106,9 +106,8 @@ class refer_friend_program_api {
         }
     }
 
-    public function getAdvocatePaymentMethods() {
-        session_start();
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+    public function getAdvocatePaymentMethods($strGRAdvocateToken) {
+        
         try {
             $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
             $aryPaymentMethods = json_decode($aryPaymentMethods);

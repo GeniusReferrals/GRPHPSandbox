@@ -1,12 +1,15 @@
 $(document).ready(function() {
-    
+
     $("#advocate_referrer").autocomplete({
         source: function(request, response) {
-            url: 'ajax/manage_advocate_ajax.php?method=searchAdvocateReferer',
-            $.getJSON(url, {
-                email: request.term
-            }, function(data, status, xhr) {
-                response(data.message);
+            var request = $.ajax({
+                type: "POST",
+                url: 'ajax/manage_advocate_ajax.php?method=searchAdvocateReferer',
+                data: {'data': {'email': request.term}}
+            });
+            request.done(function(data, status, xhr) {
+                var data = jQuery.parseJSON(data);
+                response(data);
             });
         },
         focus: function() {
@@ -41,6 +44,13 @@ $(document).ready(function() {
                     $('#btn_create_referral').removeClass('btn-info');
                     $('#btn_create_referral').addClass('btn-primary');
                 }
+            });
+            request.done(function(data) {
+                $('#createReferralModal #advocate_referrer').val('');
+                document.getElementById('campaing').selectedIndex = 0;
+                document.getElementById('network').selectedIndex = 0;
+
+                $('#createReferralModal').modal('hide');
             });
         }
     });

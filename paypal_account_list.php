@@ -1,7 +1,10 @@
 <?php
+session_start();
+$strAdvocateToken = $_SESSION['advocate_token'];
+
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods();
+$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 ?>
 
 <div class="modal-dialog">

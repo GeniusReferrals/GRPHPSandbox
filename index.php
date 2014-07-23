@@ -20,7 +20,7 @@ $arrAdvocate = $api->getAdvocates();
         <link href="public/bootstrap/css/jumbotron-narrow.css" rel="stylesheet">
 
         <link href="public/css/styles.css" rel="stylesheet">
-        
+
     </head>
 
     <body>
@@ -121,7 +121,7 @@ $arrAdvocate = $api->getAdvocates();
                                 <td><?php echo isset($objAdvocate->_campaign_contract->name) ? $objAdvocate->_campaign_contract->name : '' ?></td>
                                 <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
                                 <td class="actions">
-                                    <a id="<?php echo $objAdvocate->token ?>" class="refer_friend_program" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program" data-toggle="modal">
+                                    <a id="<?php echo $objAdvocate->token ?>" class="refer_friend_program" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program">
                                         <span class="glyphicon glyphicon-chevron-down"></span>
                                     </a>
                                     <a id="<?php echo $objAdvocate->token ?>" class="create_referral" href="#" title="Create referrer" data-toggle="modal">
@@ -158,7 +158,7 @@ $arrAdvocate = $api->getAdvocates();
         </div> <!-- /container -->
 
         <script src="public/js/jquery-2.0.3.min.js"></script>
-        
+
         <script src="public/js/jquery.validate.min.js"></script>
 
         <script src="public/js/jquery.validate.defaults.js"></script>
@@ -166,7 +166,7 @@ $arrAdvocate = $api->getAdvocates();
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="public/js/date.format.js"></script>
-        
+
         <script src="public/js/manage_advocate.js"></script>
 
     </body>
