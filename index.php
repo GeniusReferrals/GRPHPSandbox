@@ -1,7 +1,30 @@
 <?php
+require_once './vendor/autoload.php';
+require_once __DIR__ . '/library/SimplePaginator.php';
+
+if (isset($_GET['page']))
+    $page = $_GET['page'];
+else
+    $page = 1;
+
 include './api/manage_advocate_api.php';
 $api = new manage_advocate_api();
-$arrAdvocate = $api->getAdvocates();
+$arrAdvocate = $api->getAdvocates($page, 10);
+
+$paginate = new SimplePaginator();
+$arrResponse = array();
+$arrResponse['data'] = $arrAdvocate->data->results;
+$arrResponse['data']['total'] = (int) $arrAdvocate->data->total;
+$paginate->paginate($page, $arrResponse['data']['total'], 10);
+$request_uri = $_SERVER['REQUEST_URI'];
+$result = explode('?page=', $request_uri);
+
+$dom = new DOMDocument('1.0', 'utf-8');
+$element = $paginate->getDOMNode($dom, $page, $result[0] . '?page=');
+$dom->appendChild($element);
+echo $dom->saveHTML();
+
+$arrAdvocate = $arrAdvocate->data->results;
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +124,7 @@ $arrAdvocate = $api->getAdvocates();
                         </div>
                     </form>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive" id="div_table_advocate">
                     <table class="table table-striped table-bordered" id="table_advocate">
                         <tr>
                             <th>Name</th>
@@ -166,7 +189,7 @@ $arrAdvocate = $api->getAdvocates();
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="public/js/date.format.js"></script>
-
+        
         <script src="public/js/manage_advocate.js"></script>
 
     </body>

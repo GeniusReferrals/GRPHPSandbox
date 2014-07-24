@@ -91,11 +91,7 @@ class manage_advocate_ajax {
             $filters = implode('|', $arrFilter);
         }
 
-        if (!empty($filters))
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
-        else
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50);
-
+        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
         $arrAdvocate = json_decode($arrAdvocate);
         return $this->success($arrAdvocate->data->results);
     }

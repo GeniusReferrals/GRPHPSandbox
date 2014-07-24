@@ -23,20 +23,27 @@ class manage_advocate_api {
             $this->strCampaign = $apiConfig['gr_rfp_campaign'];
             $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
-        
+
         // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
     }
 
-    public function getAdvocates() {
+    public function getAdvocates($page, $limit) {
 
         try {
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50);
+            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, $page, $limit, '', 'created');
             $arrAdvocate = json_decode($arrAdvocate);
-            return $arrAdvocate->data->results;
+            return $arrAdvocate;
         } catch (Exception $exc) {
             echo $exc->getMessage();
         }
+    }
+
+    public function addDOMNode($paginate, $page_active, $url) {
+        $dom = new DOMDocument('1.0', 'utf-8');
+        $element = $paginate->getDOMNode($dom, $page_active, $url);
+        $dom->appendChild($element);
+        echo $dom->saveHTML();
     }
 
     public function getCampaigns() {

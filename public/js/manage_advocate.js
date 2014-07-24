@@ -1,6 +1,13 @@
 
 $(document).ready(function() {
 
+    if ($('#div_table_advocate #table_advocate tbody tr').length != 0)
+    {
+        $('#div_table_advocate').append($('.pagination'));
+        $('.pagination').attr("style", "display: block; float: right;");
+        $('#div_table_advocate').append($('<div style="clear: both;"></div>'));
+    }
+
     $('#btn_new_advocate').click(function() {
         $('#new_advocate_container').show();
     });
@@ -23,101 +30,78 @@ $(document).ready(function() {
                     $('#btn1_new_advocate').button('loading');
                     $('#btn1_new_advocate').removeClass('btn-primary');
                     $('#btn1_new_advocate').addClass('btn-info');
-                },
-                complete: function() {
-                    $('#btn1_new_advocate').button('reset');
-                    $('#btn1_new_advocate').removeClass('btn-info');
-                    $('#btn1_new_advocate').addClass('btn-primary');
                 }
             });
             stepRequest.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
-                    if (typeof data.message._campaign_contract === 'undefined')
-                        campaign_contract = '';
-                    else
-                        campaign_contract = data.message._campaign_contract.name;
-                    row_advocate1 = $('<tr>' +
-                            '<td>' + data.message.name + '</td>' +
-                            '<td>' + data.message.lastname + '</td>' +
-                            '<td>' + data.message.email + '</td>' +
-                            '<td>Genius referral</td>' +
-                            '<td>' + campaign_contract + '</td>' +
-                            '<td>' + dateFormat(new Date(data.message.created), "mediumDate") + '</td>');
-                    row_advocate2 = $('<td class="actions">' +
-                            '<a id="' + data.message.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + data.message.token + '" title="Refer a friend program"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
-                            '<a id="' + data.message.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
-                    row_advocate3 = $('<a id="' + data.message.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
-                            '<a id="' + data.message.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + data.message.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
-
-                    $('#table_advocate').append(row_advocate1);
-                    row_advocate1.append(row_advocate2);
-                    if (typeof data.message._advocate_referrer !== 'undefined')
-                        row_advocate2.append(row_advocate3);
-
-                    $('#name').val('');
-                    $('#last_name').val('');
-                    $('#email').val('');
-                    $('#new_advocate_container').hide();
+                    window.location = 'index.php';
                 }
             });
         }
     });
     $('#btn_search_advocate').click(function() {
-        var isValid = validateSearchAdvocate();
-        if (isValid) {
-            var data = {
-                name: $('#inputName').val(),
-                last_name: $('#inputLastname').val(),
-                email: $('#inputEmail').val()
-            };
-            var stepRequest = $.ajax({
-                url: 'ajax/manage_advocate_ajax.php?method=searchAdvocates',
-                data: {'data': data},
-                type: 'POST',
-                beforeSend: function() {
-                    $('#btn_search_advocate').button('loading');
-                    $('#btn_search_advocate').removeClass('btn-primary');
-                    $('#btn_search_advocate').addClass('btn-info');
-                },
-                complete: function() {
-                    $('#btn_search_advocate').button('reset');
-                    $('#btn_search_advocate').removeClass('btn-info');
-                    $('#btn_search_advocate').addClass('btn-primary');
-                }
-            });
-            stepRequest.done(function(data) {
-                var data = jQuery.parseJSON(data);
-                if (data.success) {
-                    $('#table_advocate td').remove();
-                    $.each(data.message, function(i, elem) {
-                        if (typeof elem._campaign_contract === 'undefined')
-                            campaign_contract = '';
-                        else
-                            campaign_contract = elem._campaign_contract.name;
-                        row_advocate1 = $('<tr>' +
-                                '<td>' + elem.name + '</td>' +
-                                '<td>' + elem.lastname + '</td>' +
-                                '<td>' + elem.email + '</td>' +
-                                '<td> Genius referrals </td>' +
-                                '<td>' + campaign_contract + '</td>' +
-                                '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
-                        row_advocate2 = $('<td class="actions">' +
-                                '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
-                                '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
-                        row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
-                                '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
+        if ($('#inputName').val() != '' || $('#inputLastname').val() != '' || $('#inputEmail').val() != '')
+        {
+            var isValid = validateSearchAdvocate();
+            if (isValid) {
+                var data = {
+                    name: $('#inputName').val(),
+                    last_name: $('#inputLastname').val(),
+                    email: $('#inputEmail').val()
+                };
+                var stepRequest = $.ajax({
+                    url: 'ajax/manage_advocate_ajax.php?method=searchAdvocates',
+                    data: {'data': data},
+                    type: 'POST',
+                    beforeSend: function() {
+                        $('#btn_search_advocate').button('loading');
+                        $('#btn_search_advocate').removeClass('btn-primary');
+                        $('#btn_search_advocate').addClass('btn-info');
+                    },
+                    complete: function() {
+                        $('#btn_search_advocate').button('reset');
+                        $('#btn_search_advocate').removeClass('btn-info');
+                        $('#btn_search_advocate').addClass('btn-primary');
+                    }
+                });
+                stepRequest.done(function(data) {
+                    var data = jQuery.parseJSON(data);
+                    if (data.success) {
+                        $('#table_advocate td').remove();
+                        $('#table_advocate').append('<tbody id="example4">');
+                        $.each(data.message, function(i, elem) {
+                            if (typeof elem._campaign_contract === 'undefined')
+                                campaign_contract = '';
+                            else
+                                campaign_contract = elem._campaign_contract.name;
+                            row_advocate1 = $('<tr>' +
+                                    '<td>' + elem.name + '</td>' +
+                                    '<td>' + elem.lastname + '</td>' +
+                                    '<td>' + elem.email + '</td>' +
+                                    '<td> Genius referrals </td>' +
+                                    '<td>' + campaign_contract + '</td>' +
+                                    '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>');
+                            row_advocate2 = $('<td class="actions">' +
+                                    '<a id="' + elem.token + '" class="refer_friend_program" href="refer_friend_program.php?advocate_token=' + elem.token + '" title="Refer a friend program" data-toggle="modal"><span class="glyphicon glyphicon-chevron-down"></span></a>' +
+                                    '<a id="' + elem.token + '" class="create_referral" href="#" title="Create referrer" data-toggle="modal" onclick="createReferral(\'' + elem.token + '\')"><span class="glyphicon glyphicon-pencil"></span></a>');
+                            row_advocate3 = $('<a id="' + elem.token + '" class="process_bonus" href="#" title="Process bonus" data-toggle="modal" onclick="processBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-retweet"></span></a>' +
+                                    '<a id="' + elem.token + '" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal" onclick="checkupBonus(\'' + elem.token + '\')"><span class="glyphicon glyphicon-check"></span></a>');
 
-                        $('#table_advocate').append(row_advocate1);
-                        row_advocate1.append(row_advocate2);
-                        if (typeof elem._advocate_referrer !== 'undefined')
-                            row_advocate2.append(row_advocate3);
-                    });
-                    $('#inputName').val('');
-                    $('#inputLastname').val('');
-                    $('#inputEmail').val('');
-                }
-            });
+                            $('#table_advocate').append(row_advocate1);
+                            row_advocate1.append(row_advocate2);
+                            if (typeof elem._advocate_referrer !== 'undefined')
+                                row_advocate2.append(row_advocate3);
+                        });
+
+                        $('.pagination').remove();
+
+                        $('#inputName').val('');
+                        $('#inputLastname').val('');
+                        $('#inputEmail').val('');
+                    }
+                });
+            }
         }
     });
 });

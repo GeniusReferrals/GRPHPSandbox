@@ -69,3 +69,9 @@ a:hover{
 .ui-autocomplete-loading {
     background: white url('../images/loading_autocomplete.gif') right center no-repeat;
 }
+.actions{
+    width: 90px;
+}
+th{
+    background-color: #E5E5E5 !important;
+}
