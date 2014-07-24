@@ -78,26 +78,26 @@ class manage_advocate_ajax {
 
     public function searchAdvocates($data) {
 
-        if (!empty($data['name'])) {
-            $arrFilter[] = "name::" . $data['name'];
-        }
-        if (!empty($data['lastname'])) {
-            $arrFilter[] = "lastname::" . $data['last_name'];
-        }
-        if (!empty($data['email'])) {
-            $arrFilter[] = "email::" . $data['email'];
-        }
-        if (!empty($arrFilter)) {
-            $filters = implode('|', $arrFilter);
-        }
+        try {
+            if (!empty($data['name'])) {
+                $arrFilter[] = "name::" . $data['name'];
+            }
+            if (!empty($data['lastname'])) {
+                $arrFilter[] = "lastname::" . $data['last_name'];
+            }
+            if (!empty($data['email'])) {
+                $arrFilter[] = "email::" . $data['email'];
+            }
+            if (!empty($arrFilter)) {
+                $filters = implode('|', $arrFilter);
+            }
 
-        if (!empty($filters))
             $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
-        else
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50);
-
-        $arrAdvocate = json_decode($arrAdvocate);
-        return $this->success($arrAdvocate->data->results);
+            $arrAdvocate = json_decode($arrAdvocate);
+            return $this->success($arrAdvocate->data);
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
     }
 
     public function searchAdvocateReferer($data) {
