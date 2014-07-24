@@ -65,4 +65,6 @@ $arrReferralOrigins = $api->getReferralOrigins();
 
 <script src="public/js/jquery.ui.autocomplete.js"></script>
 
+<script src="public/js/autocomplete.js"></script>
+
 <script src="public/js/advocate_actions.js"></script>
