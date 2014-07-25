@@ -192,7 +192,7 @@ $arrAdvocate = $arrAdvocate->data->results;
         <script src="public/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="public/js/date.format.js"></script>
-
+        
         <script src="public/js/manage_advocate.js"></script>
 
     </body>
