@@ -4,6 +4,9 @@ require_once '../vendor/autoload.php';
 
 use GeniusReferrals\GRPHPAPIClient;
 
+/**
+ * All ajax traffic comes through here.
+ */
 class manage_advocate_ajax {
 
     protected $response;
@@ -14,6 +17,13 @@ class manage_advocate_ajax {
     protected $strCampaign;
     protected $strWidgetsPackage;
 
+    /**
+     * when ajax traffic hits, instantiate this class
+     * passing in the name of the method to run
+     * this is a pseudo controller
+     *
+     * @param  string $method. The name of the class method to run
+     */
     public function __construct($method = NULL) {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
@@ -44,6 +54,12 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * Create advocate.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function createAdvocate($data) {
 
         //preparing the data to be sent on the request
@@ -76,6 +92,12 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * Search advocates.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function searchAdvocates($data) {
 
         try {
@@ -100,6 +122,12 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * Search advocate referer.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function searchAdvocateReferer($data) {
 
         $filters = "email::" . $data['email'];
@@ -117,6 +145,12 @@ class manage_advocate_ajax {
         die(json_encode($arrEmail));
     }
 
+    /**
+     * Add referrer.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function createReferral($data) {
 
 
@@ -141,6 +175,12 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * Give bonus.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function processBonus($data) {
 
         //preparing the data to be sent on the request
@@ -175,6 +215,12 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * Check bonus.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function checkupBonus($data) {
 
         //preparing the data to be sent on the request
@@ -214,14 +260,33 @@ class manage_advocate_ajax {
         }
     }
 
+    /**
+     * will die exporting the json string of
+     * $this->response
+     *
+     * sets success to true
+     *
+     * @param  array $data 
+     * @return void
+     */
     protected function success($data) {
+        // use the global response object
+        // this way, other methods can add to it if needed
         $this->response->success = TRUE;
         $this->response->message = $data;
 
         die(json_encode($this->response));
     }
 
+    /**
+     * same as self::success yet sets success to false
+     *
+     * @param  array $data 
+     * @return void
+     */
     protected function failure($data) {
+        // use the global response object
+        // this way, other methods can add to it if needed
         $this->response->success = FALSE;
         $this->response->message = $data;
 
@@ -230,5 +295,10 @@ class manage_advocate_ajax {
 
 }
 
+/**
+ * This is the key to the ignition
+ * start a new instance of the ajax controller, and call the method specified
+ * @var ajax_controller
+ */
 $ajax = new manage_advocate_ajax($_GET['method']);
 

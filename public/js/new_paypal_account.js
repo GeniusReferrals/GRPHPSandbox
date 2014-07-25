@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
 
+    /**
+     * Create paypal account.
+     */
     $('#btn_new_paypal_account').click(function(e) {
 
         var isValid = validatePaypalAccount();
@@ -66,6 +69,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Validate form_paypal_account.
+ */
 function validatePaypalAccount()
 {
     $('#form_paypal_account').validate({

@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
 
+    /**
+     * Show or hide paypal account.
+     */
     $('select#redemption_type').change(function() {
         if ($(this).val() == 'pay-out')
             $('#container_paypal_account').attr('style', 'display:block');
@@ -8,6 +11,9 @@ $(document).ready(function() {
             $('#container_paypal_account').attr('style', 'display:none');
     });
 
+    /**
+     * Load modal paypal account.
+     */
     $('#paypal_account_actions').click(function(e) {
         var stepRequest = $.ajax({
             type: "GET",
@@ -21,6 +27,9 @@ $(document).ready(function() {
         });
     });
 
+    /**
+     * Redeem bonuses.
+     */
     $('#btn_redeem_bonuses').click(function(e) {
         var isValid = validate();
         if (isValid) {
@@ -100,6 +109,9 @@ $(document).ready(function() {
         $('#content_tab_redeem_bonuses').addClass('active');
     });
 
+    /**
+     * Load graph share daily participation.
+     */
     flag_shares_participation = true;
     $('#shares_participation_tab').on('shown.bs.tab', function(e) {
 
@@ -124,6 +136,9 @@ $(document).ready(function() {
 
     });
 
+    /**
+     * Load graph click daily participation.
+     */
     flag_clicks_participation = true;
     $('#clicks_participation_tab').on('shown.bs.tab', function(e) {
 
@@ -147,6 +162,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Load graph referral daily participation.
+     */
     flag_referral_participation = true;
     $('#referral_participation_tab').on('shown.bs.tab', function(e) {
 
@@ -170,6 +188,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Load graph bonuses daily given.
+     */
     flag_bonuses_given = true;
     $('#bonuses_given_tab').on('shown.bs.tab', function(e) {
 
@@ -195,6 +216,9 @@ $(document).ready(function() {
 
 });
 
+/**
+ * Validate form_redeem_bonuses.
+ */
 function validate()
 {
     $('#form_redeem_bonuses').validate({

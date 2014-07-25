@@ -13,6 +13,10 @@ class manage_advocate_api {
     protected $strCampaign;
     protected $strWidgetsPackage;
 
+    /**
+     * Create a new GRPHPAPIClient object
+     * 
+     */
     public function __construct() {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
@@ -23,11 +27,16 @@ class manage_advocate_api {
             $this->strCampaign = $apiConfig['gr_rfp_campaign'];
             $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
-
-        // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
     }
 
+    /**
+     * Get advocates.
+     * 
+     * @param integer $page. The current page, default is 1.
+     * @param integer $limit. Maximum number of results to return in the response.
+     * @return string
+     */
     public function getAdvocates($page, $limit) {
 
         try {
@@ -46,6 +55,11 @@ class manage_advocate_api {
         echo $dom->saveHTML();
     }
 
+    /**
+     * Get campaigns.
+     * 
+     * @return string
+     */
     public function getCampaigns() {
 
         try {
@@ -57,6 +71,11 @@ class manage_advocate_api {
         }
     }
 
+    /**
+     * Get referral origins.
+     * 
+     * @return string
+     */
     public function getReferralOrigins() {
 
         try {

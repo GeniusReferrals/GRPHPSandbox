@@ -13,6 +13,10 @@ class refer_friend_program_api {
     protected $strCampaign;
     protected $strWidgetsPackage;
 
+    /**
+     * Create a new GRPHPAPIClient object
+     * 
+     */
     public function __construct() {
 
         if (file_exists(__DIR__ . '/../config/config.php')) {
@@ -23,13 +27,14 @@ class refer_friend_program_api {
             $this->strCampaign = $apiConfig['gr_rfp_campaign'];
             $this->strWidgetsPackage = $apiConfig['gr_rfp_widgets_package'];
         }
-
-        // Create a new GRPHPAPIClient object
         $this->objGeniusReferralsAPIClient = new GRPHPAPIClient($this->strUsername, $this->strAuthToken);
     }
 
     /**
-     * tab Referral tools
+     * Get advocates share links.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
      */
     public function getAdvocatesShareLinks($strGRAdvocateToken) {
 
@@ -54,7 +59,10 @@ class refer_friend_program_api {
     }
 
     /**
-     * tab Bonuses earned
+     * Get referrals summary per origin report.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
      */
     public function getReferralsSummaryPerOriginReport($strGRAdvocateToken) {
 
@@ -67,6 +75,12 @@ class refer_friend_program_api {
         }
     }
 
+    /**
+     * Get bonuses summary per origin report.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
+     */
     public function getBonusesSummaryPerOriginReport($strGRAdvocateToken) {
 
         try {
@@ -79,7 +93,10 @@ class refer_friend_program_api {
     }
 
     /**
-     * tab Redeem your bonuses
+     * Get advocate.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
      */
     public function getAdvocate($strGRAdvocateToken) {
 
@@ -92,6 +109,12 @@ class refer_friend_program_api {
         }
     }
 
+    /**
+     * Get redemption requests.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
+     */
     public function getRedemptionRequests($strGRAdvocateToken) {
 
         try {
@@ -106,8 +129,14 @@ class refer_friend_program_api {
         }
     }
 
+    /**
+     * Get advocate payment methods.
+     * 
+     * @param string $strGRAdvocateToken. The advocate token.
+     * @return string
+     */
     public function getAdvocatePaymentMethods($strGRAdvocateToken) {
-        
+
         try {
             $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
             $aryPaymentMethods = json_decode($aryPaymentMethods);

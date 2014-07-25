@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    /**
+     * Add referrer.
+     */
     $('#btn_create_referral').click(function(e) {
         e.preventDefault();
         var isValid = validateCreateReferral();
@@ -38,6 +41,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Checkup bonus.
+     */
     $('#btn_checkup_bonus').click(function(e) {
         e.preventDefault();
         var isValid = validateCheckupBonus();
@@ -116,6 +122,9 @@ $(document).ready(function() {
         }
     });
 
+    /**
+     * Process bonus.
+     */
     $('#btn_process_bonus').click(function(e) {
         e.preventDefault();
         var isValid = validateProcessBonus();
@@ -167,6 +176,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Validate form add referrer.
+ */
 function validateCreateReferral()
 {
     $('#form_create_referral').validate({
@@ -179,6 +191,9 @@ function validateCreateReferral()
     return $('#form_create_referral').valid();
 }
 
+/**
+ * Validate form checkup bonus.
+ */
 function validateCheckupBonus()
 {
     $('#form_checkup_bonus').validate({
@@ -191,6 +206,9 @@ function validateCheckupBonus()
     return $('#form_checkup_bonus').valid();
 }
 
+/**
+ * Validate form process bonus.
+ */
 function validateProcessBonus()
 {
     $('#form_process_bonus').validate({

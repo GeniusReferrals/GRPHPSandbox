@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    /**
+     * Search advocate referer.
+     */
     $("#advocate_referrer").autocomplete({
         source: function(request, response) {
             var request = $.ajax({

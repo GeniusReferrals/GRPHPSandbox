@@ -147,17 +147,17 @@ $arrAdvocate = $arrAdvocate->data->results;
                                 <td><?php echo isset($objAdvocate->_campaign_contract->name) ? $objAdvocate->_campaign_contract->name : '' ?></td>
                                 <td><?php echo date('M d, Y', strtotime($objAdvocate->created)) ?></td>
                                 <td class="actions">
-                                    <a id="<?php echo $objAdvocate->token ?>" class="refer_friend_program" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program">
+                                    <a id="<?php echo $objAdvocate->token ?>" href="refer_friend_program.php?advocate_token=<?php echo $objAdvocate->token; ?>" title="Refer a friend program">
                                         <span class="glyphicon glyphicon-chevron-down"></span>
                                     </a>
-                                    <a id="<?php echo $objAdvocate->token ?>" class="create_referral" href="#" title="Create referrer" data-toggle="modal">
+                                    <a id="<?php echo $objAdvocate->token ?>" onclick="createReferral('<?php echo $objAdvocate->token ?>')" href="#" title="Create referrer" data-toggle="modal">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                     <?php if (isset($objAdvocate->_advocate_referrer->email)) { ?>
-                                        <a id="<?php echo $objAdvocate->token ?>" class="process_bonus" href="#" title="Process bonus" data-toggle="modal">
+                                    <a id="<?php echo $objAdvocate->token ?>" onclick="processBonus('<?php echo $objAdvocate->token ?>')" href="#" title="Process bonus" data-toggle="modal">
                                             <span class="glyphicon glyphicon-retweet"></span>
                                         </a>
-                                        <a id="<?php echo $objAdvocate->token ?>" class="checkup_bonus" href="#" title="Checkup bonus" data-toggle="modal">
+                                    <a id="<?php echo $objAdvocate->token ?>" onclick="checkupBonus('<?php echo $objAdvocate->token ?>')" href="#" title="Checkup bonus" data-toggle="modal">
                                             <span class="glyphicon glyphicon-check"></span>
                                         </a>
                                     <?php } ?>

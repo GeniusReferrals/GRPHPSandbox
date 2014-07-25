@@ -5,6 +5,9 @@ require_once '../vendor/autoload.php';
 use GeniusReferrals\GRPHPAPIClient;
 use Guzzle\Http\Client;
 
+/**
+ * All ajax traffic comes through here.
+ */
 class refer_friend_program_ajax {
 
     protected $response;
@@ -18,6 +21,13 @@ class refer_friend_program_ajax {
     protected $strApiTokenKey;
     protected $strApiTokenValue;
 
+    /**
+     * when ajax traffic hits, instantiate this class
+     * passing in the name of the method to run
+     * this is a pseudo controller
+     *
+     * @param  string $method. The name of the class method to run
+     */
     public function __construct($method = NULL) {
 
         session_start();
@@ -53,6 +63,12 @@ class refer_friend_program_ajax {
         }
     }
 
+    /**
+     * Create paypal account.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function createPaypalAccount($data) {
 
         $strPaypalUsername = $data['paypal_username'];
@@ -60,9 +76,9 @@ class refer_friend_program_ajax {
         $boolPaypalActive = $data['paypal_is_active'];
 
         try {
-            if (!empty($_SESSION['strAdvocateToken'])) {
+            if (!empty($_SESSION['advocate_token'])) {
 
-                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+                $strGRAdvocateToken = $_SESSION['advocate_token'];
 
                 if ($boolPaypalActive === '1') {
 
@@ -102,17 +118,22 @@ class refer_friend_program_ajax {
         }
     }
 
+    /**
+     * Activate or desactivate paypal account.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function activateDesactivatePaypalAccount($data) {
-
         $strPaypalUsername = $data['username'];
         $strPaypalDescription = $data['description'];
         $boolPaypalActive = $data['is_active'];
         $intPaymentMethodId = $data['payment_method_id'];
 
         try {
-            if (!empty($_SESSION['strAdvocateToken'])) {
+            if (!empty($_SESSION['advocate_token'])) {
 
-                $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+                $strGRAdvocateToken = $_SESSION['advocate_token'];
 
                 if ($boolPaypalActive === '1') {
                     $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
@@ -151,9 +172,15 @@ class refer_friend_program_ajax {
         }
     }
 
+    /**
+     * Redeem bonuses.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function redeemBonuses($data) {
 
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+        $strGRAdvocateToken = $_SESSION['advocate_token'];
         $intAmountRedeem = $data['amount_redeem'];
         $strRedemptionType = $data['redemption_type'];
         $strPaypalAccount = $data['paypal_account'];
@@ -200,8 +227,14 @@ class refer_friend_program_ajax {
         }
     }
 
+    /**
+     * Get share daily participation.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function getShareDailyParticipation($data) {
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+        $strGRAdvocateToken = $_SESSION['advocate_token'];
 
         $aryShareDailyParticipation = $this->getShareDailyParticipationClient('', $this->strAccount, '', '', $strGRAdvocateToken);
         $aryShareDailyTotals = $this->convertReportShareDailyParticipationToArray($aryShareDailyParticipation->data);
@@ -210,8 +243,14 @@ class refer_friend_program_ajax {
         return $this->success(array(json_encode($aryShareDailyAverage), json_encode($aryShareDailyTotals)));
     }
 
+    /**
+     * Get click daily participation.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function getClickDailyParticipation($data) {
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+        $strGRAdvocateToken = $_SESSION['advocate_token'];
 
         $aryClickDailyParticipation = $this->getClickDailyParticipationClient('', $this->strAccount, '', '', $strGRAdvocateToken);
         $aryClickDailyTotals = $this->convertReportClickDailyParticipationToArray($aryClickDailyParticipation->data);
@@ -220,8 +259,14 @@ class refer_friend_program_ajax {
         return $this->success(array(json_encode($aryClickDailyAverage), json_encode($aryClickDailyTotals)));
     }
 
+    /**
+     * Get referral daily participation.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function getReferralDailyParticipation($data) {
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+        $strGRAdvocateToken = $_SESSION['advocate_token'];
 
         $aryReferralDailyParticipation = $this->getReferralDailyParticipationClient('', $this->strAccount, '', '', $strGRAdvocateToken);
         $aryDailyParticipationTotals = $this->convertReportDataToArray($aryReferralDailyParticipation->data);
@@ -230,8 +275,14 @@ class refer_friend_program_ajax {
         return $this->success(array(json_encode($aryDailyParticipationAverage), json_encode($aryDailyParticipationTotals)));
     }
 
+    /**
+     * Get bonuses daily given.
+     * 
+     * @param  array $data *must be* $_POST['data']
+     * @return string JSON string of response object
+     */
     public function getBonusesDailyGiven($data) {
-        $strGRAdvocateToken = $_SESSION['strAdvocateToken'];
+        $strGRAdvocateToken = $_SESSION['advocate_token'];
 
         $aryBonusesDailyGiven = $this->getBonusesDailyGivenClient('', $this->strAccount, '', '', $strGRAdvocateToken);
         $aryBonusesDailyGivenTotals = $this->convertReportDataToArray($aryBonusesDailyGiven->data);
@@ -239,6 +290,41 @@ class refer_friend_program_ajax {
 
         return $this->success(array(json_encode($aryBonusesDailyGivenAverage), json_encode($aryBonusesDailyGivenTotals)));
     }
+
+    /**
+     * will die exporting the json string of
+     * $this->response
+     *
+     * sets success to true
+     *
+     * @param  array $data 
+     * @return void
+     */
+    protected function success($data) {
+        // use the global response object
+        // this way, other methods can add to it if needed
+        $this->response->success = TRUE;
+        $this->response->message = $data;
+
+        die(json_encode($this->response));
+    }
+
+    /**
+     * same as self::success yet sets success to false
+     *
+     * @param  array $data 
+     * @return void
+     */
+    protected function failure($data) {
+        // use the global response object
+        // this way, other methods can add to it if needed
+        $this->response->success = FALSE;
+        $this->response->message = $data;
+
+        die(json_encode($this->response));
+    }
+
+    /*     * *************************Help methods************************* */
 
     private function getShareDailyParticipationClient($client_slug = '', $client_account_slug = '', $program_id = '', $campaign_slug = '', $advocate_token = '', $from = '', $to = '') {
         $client = new Client();
@@ -300,7 +386,7 @@ class refer_friend_program_ajax {
         return json_decode($response->getBody(true));
     }
 
-    public function convertReportShareDailyParticipationToArray($aryShareDailyParticipation) {
+    private function convertReportShareDailyParticipationToArray($aryShareDailyParticipation) {
         $aryData = array();
         $key = 0;
         for ($i = count($aryShareDailyParticipation) - 1; $i >= 0; $i--) {
@@ -325,7 +411,7 @@ class refer_friend_program_ajax {
         return $aryData;
     }
 
-    public function convertReportClickDailyParticipationToArray($aryClickDailyParticipation) {
+    private function convertReportClickDailyParticipationToArray($aryClickDailyParticipation) {
         $aryData = array();
         $key = 0;
         for ($i = count($aryClickDailyParticipation) - 1; $i >= 0; $i--) {
@@ -352,7 +438,7 @@ class refer_friend_program_ajax {
         return $aryData;
     }
 
-    public function convertReportDataToArray($aryDailyParticipation) {
+    private function convertReportDataToArray($aryDailyParticipation) {
         $aryData = array();
         $key = 0;
         for ($i = count($aryDailyParticipation) - 1; $i >= 0; $i--) {
@@ -464,25 +550,12 @@ class refer_friend_program_ajax {
         return $aryAverage;
     }
 
-    protected function success($data) {
-        // use the global response object
-        // this way, other methods can add to it if needed
-        $this->response->success = TRUE;
-        $this->response->message = $data;
-
-        die(json_encode($this->response));
-    }
-
-    protected function failure($data) {
-        // use the global response object
-        // this way, other methods can add to it if needed
-        $this->response->success = FALSE;
-        $this->response->message = $data;
-
-        die(json_encode($this->response));
-    }
-
 }
 
+/**
+ * This is the key to the ignition
+ * start a new instance of the ajax controller, and call the method specified
+ * @var ajax_controller
+ */
 $ajax = new refer_friend_program_ajax($_GET['method']);
 
