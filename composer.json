@@ -1,9 +1,24 @@
 {
     "name": "GRPHPSandbox",
-    "type": "project",
     "description": "The \"GRPHPSandbox\" project",
-    
+    "keywords": ["geniusreferrals", "GRPHPSandbox"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "GRPHPSandbox",
+            "email": "dev@geniusreferrals.com",
+            "homepage": "http://www.geniusreferrals.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/GeniusReferrals/GRPHPSandbox/issues"
+    },
     "require": {
         "geniusreferrals/gr-api-php-client": "dev-master"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
 }
