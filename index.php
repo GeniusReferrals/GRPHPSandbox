@@ -183,17 +183,17 @@ $arrAdvocate = $arrAdvocate->data->results;
 
         </div> <!-- /container -->
 
-        <script src="public/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="public/js/jquery-2.0.3.min.js"></script>
 
-        <script src="public/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="public/js/jquery.validate.min.js"></script>
 
-        <script src="public/js/jquery.validate.defaults.js"></script>
+        <script type="text/javascript" src="public/js/jquery.validate.defaults.js"></script>
 
-        <script src="public/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="public/bootstrap/js/bootstrap.min.js"></script>
 
-        <script src="public/js/date.format.js"></script>
+        <script type="text/javascript" src="public/js/date.format.js"></script>
         
-        <script src="public/js/manage_advocate.js"></script>
+        <script type="text/javascript" src="public/js/manage_advocate.js"></script>
 
     </body>
 </html>
