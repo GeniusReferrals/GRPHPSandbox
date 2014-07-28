@@ -72,4 +72,4 @@
     </div>
 </div>
 
-<script src="public/js/advocate_actions.js"></script>
+<script type="text/javascript" src="public/js/advocate_actions.js"></script>

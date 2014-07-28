@@ -6,9 +6,15 @@ $(document).ready(function() {
      */
     $('select#redemption_type').change(function() {
         if ($(this).val() == 'pay-out')
+        {
+            document.getElementById('paypal_account').selectedIndex = 0;
             $('#container_paypal_account').attr('style', 'display:block');
+        }
         else
+        {
+            document.getElementById('paypal_account').selectedIndex = 0;
             $('#container_paypal_account').attr('style', 'display:none');
+        }
     });
 
     /**

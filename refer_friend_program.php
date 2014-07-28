@@ -99,24 +99,24 @@ $arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 
         </div> <!-- /container -->
 
-        <script src="public/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="public/js/jquery-2.0.3.min.js"></script>
 
-        <script src="public/js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="public/js/jquery.validate.min.js"></script>
 
-        <script src="public/js/jquery.validate.defaults.js"></script>
+        <script type="text/javascript" src="public/js/jquery.validate.defaults.js"></script>
 
-        <script src="public/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="public/bootstrap/js/bootstrap.min.js"></script>
 
-        <script src="public/js/date.format.js"></script>
+        <script type="text/javascript" src="public/js/date.format.js"></script>
 
-        <script src="public/js/amcharts/amcharts.js"></script>
-        <script src="public/js/amcharts/pie.js"></script>
-        <script src="public/js/amcharts/serial.js"></script>
-        <script src="public/js/charts.js"></script>
+        <script type="text/javascript" src="public/js/amcharts/amcharts.js"></script>
+        <script type="text/javascript" src="public/js/amcharts/pie.js"></script>
+        <script type="text/javascript" src="public/js/amcharts/serial.js"></script>
+        <script type="text/javascript" src="public/js/charts.js"></script>
 
-        <script src="public/js/refer_friend_program.js"></script>
+        <script type="text/javascript" src="public/js/refer_friend_program.js"></script>
 
-        <script src="public/js/paypal_account_list.js"></script>
+        <script type="text/javascript" src="public/js/paypal_account_list.js"></script>
 
     </body>
 </html>
