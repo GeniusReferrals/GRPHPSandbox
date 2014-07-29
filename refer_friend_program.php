@@ -5,12 +5,12 @@ $_SESSION['advocate_token'] = $strAdvocateToken;
 
 include './api/refer_friend_program_api.php';
 $api = new refer_friend_program_api();
-$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
-$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
-$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
-$objAdvocate = $api->getAdvocate($strAdvocateToken);
-$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
-$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
+//$arrAdvocatesShareLinks = $api->getAdvocatesShareLinks($strAdvocateToken);
+//$arrReferralsSummaryPerOriginReport = $api->getReferralsSummaryPerOriginReport($strAdvocateToken);
+//$arrBonusesSummaryPerOriginReport = $api->getBonusesSummaryPerOriginReport($strAdvocateToken);
+//$objAdvocate = $api->getAdvocate($strAdvocateToken);
+//$arrRedemptionRequests = $api->getRedemptionRequests($strAdvocateToken);
+//$arrAdvocatePaymentMethods = $api->getAdvocatePaymentMethods($strAdvocateToken);
 ?>
 
 <!DOCTYPE html>
