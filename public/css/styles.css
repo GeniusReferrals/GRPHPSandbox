@@ -87,3 +87,8 @@ th{
 #table_advocate{
     font-size: 14px;
 }
+#table_advocate a {
+    color: #428BCA;
+    padding-right: 4px;
+    text-decoration: none;
+}

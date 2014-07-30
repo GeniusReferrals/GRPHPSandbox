@@ -184,15 +184,26 @@ class manage_advocate_ajax {
     public function processBonus($data) {
 
         //preparing the data to be sent on the request
-        $arrReferral = array("bonus" => array(
-                "advocate_token" => $data['advocate_token'],
-                "reference" => $data['reference'],
-                "amount_of_payments" => $data['amount_payments'],
-                "payment_amount" => $data['payment_amount']
-        ));
+        if (empty($data['amount_of_payments']) && empty($data['payment_amount'])) {
+            $arrBonus = array('bonus' => array('advocate_token' => $data['advocate_token'],
+                    'reference' => $data['reference']));
+        } else if (empty($data['amount_of_payments'])) {
+            $arrBonus = array('bonus' => array('advocate_token' => $data['advocate_token'],
+                    'reference' => $data['reference'],
+                    'payment_amount' => $data['payment_amount']));
+        } else if (empty($data['payment_amount'])) {
+            $arrBonus = array('bonus' => array('advocate_token' => $data['advocate_token'],
+                    'reference' => $data['reference'],
+                    'amount_of_payments' => $data['amount_payments']));
+        } else {
+            $arrBonus = array('bonus' => array('advocate_token' => $data['advocate_token'],
+                    'reference' => $data['reference'],
+                    'amount_of_payments' => $data['amount_payments'],
+                    'payment_amount' => $data['payment_amount']));
+        }
 
         //trying to give a bonus to the advocate's referrer
-        $objResponse = $this->objGeniusReferralsAPIClient->postBonuses($this->strAccount, $arrReferral);
+        $objResponse = $this->objGeniusReferralsAPIClient->postBonuses($this->strAccount, $arrBonus);
         $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
         if ($intResponseCode == '201') {
@@ -224,11 +235,23 @@ class manage_advocate_ajax {
     public function checkupBonus($data) {
 
         //preparing the data to be sent on the request
-        $arrReferral = array("advocate_token" => $data['advocate_token'],
-            "reference" => $data['reference'],
-            "amount_of_payments" => $data['amount_payments'],
-            "payment_amount" => $data['payment_amount']
-        );
+        if (empty($data['amount_payments']) && empty($data['payment_amount'])) {
+            $arrReferral = array('advocate_token' => $data['advocate_token'],
+                'reference' => $data['reference']);
+        } else if (empty($data['amount_payments'])) {
+            $arrReferral = array('advocate_token' => $data['advocate_token'],
+                'reference' => $data['reference'],
+                'payment_amount' => $data['payment_amount']);
+        } else if (empty($data['payment_amount'])) {
+            $arrReferral = array('advocate_token' => $data['advocate_token'],
+                'reference' => $data['reference'],
+                'amount_of_payments' => $data['amount_payments']);
+        } else {
+            $arrReferral = array('advocate_token' => $data['advocate_token'],
+                'reference' => $data['reference'],
+                'amount_of_payments' => $data['amount_payments'],
+                'payment_amount' => $data['payment_amount']);
+        }
 
         //trying to give a bonus to the advocate's referrer
         $responseCheckup = $this->objGeniusReferralsAPIClient->getBonusesCheckup($this->strAccount, $arrReferral);
