@@ -21,12 +21,12 @@ $(document).ready(function() {
      * Load modal paypal account.
      */
     $('#paypal_account_actions').click(function(e) {
-        var stepRequest = $.ajax({
+        var request = $.ajax({
             type: "GET",
             url: 'paypal_account_list.php'
         });
         $('#paypalAccountModal').modal('show');
-        stepRequest.done(function(response) {
+        request.done(function(response) {
             if (response) {
                 $('#paypalAccountModal').html(response);
             }
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 redemption_type: $('#redemption_type').val(),
                 paypal_account: $('#paypal_account').val()
             };
-            var stepRequest = $.ajax({
+            var request = $.ajax({
                 url: 'ajax/refer_friend_program_ajax.php?method=redeemBonuses',
                 data: {'data': data},
                 type: 'POST',
@@ -59,7 +59,7 @@ $(document).ready(function() {
                     $('#btn_redeem_bonuses').addClass('btn-primary');
                 }
             });
-            stepRequest.done(function(data) {
+            request.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
                     $.each(data.message, function(i, elem) {

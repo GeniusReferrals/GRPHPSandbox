@@ -13,7 +13,7 @@ $(document).ready(function() {
                 paypal_description: $('#paypal_description').val(),
                 paypal_is_active: $('#paypal_is_active').val()
             };
-            var stepRequest = $.ajax({
+            var request = $.ajax({
                 type: "POST",
                 url: 'ajax/refer_friend_program_ajax.php?method=createPaypalAccount',
                 data: {'data': data},
@@ -28,7 +28,7 @@ $(document).ready(function() {
                     $('#btn_new_paypal_account').addClass('btn-primary');
                 }
             });
-            stepRequest.done(function(data) {
+            request.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
                     $('#paypal_account').append('<option value="' + $('#paypal_username').val() + '">' + $('#paypal_username').val() + '</option>');

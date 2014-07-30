@@ -6,12 +6,12 @@ $(document).ready(function() {
      */
     $('#new_paypal_account_ajax').click(function(e) {
         e.preventDefault();
-        var stepRequest = $.ajax({
+        var request = $.ajax({
             type: "GET",
             url: 'new_paypal_account.php'
         });
         $('#newPaypalAccountModal').modal('show');
-        stepRequest.done(function(response) {
+        request.done(function(response) {
             if (response) {
                 $('#newPaypalAccountModal').html(response);
             }
@@ -38,7 +38,7 @@ function activateDesactivate(data) {
         username: username,
         is_active: is_active
     };
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "POST",
         url: 'ajax/refer_friend_program_ajax.php?method=activateDesactivatePaypalAccount',
         data: {'data': data},
@@ -49,7 +49,7 @@ function activateDesactivate(data) {
             $('#' + id).button('reset');
         }
     });
-    stepRequest.done(function(data) {
+    request.done(function(data) {
         var data = jQuery.parseJSON(data);
         if (data.success) {
             $('#table_payment td').remove();

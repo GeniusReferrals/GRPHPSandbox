@@ -62,33 +62,42 @@ class manage_advocate_ajax {
      */
     public function createAdvocate($data) {
 
-        //preparing the data to be sent on the request
-        $strAdvocateData = array('advocate' => array(
-                'name' => $data['name'],
-                'lastname' => $data['last_name'],
-                'email' => $data['email'],
-                'payout_threshold' => 20));
+        $filters = "email::" . $data['email'];
 
-        $objResponse = $this->objGeniusReferralsAPIClient->postAdvocate($this->strAccount, $strAdvocateData);
-        $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 1, $filters);
+        $arrAdvocate = json_decode($arrAdvocate);
 
-        if ($intResponseCode == '201') {
-            //getting the advocate token from the Location header
-            $arrLocation = $objResponse->getHeader('Location')->raw();
-            $strLocation = $arrLocation[0];
-            $arrParts = explode('/', $strLocation);
-            $strAdvocateToken = end($arrParts);
+        if ($arrAdvocate->data->total == 0) {
+            //preparing the data to be sent on the request
+            $strAdvocateData = array('advocate' => array(
+                    'name' => $data['name'],
+                    'lastname' => $data['last_name'],
+                    'email' => $data['email'],
+                    'payout_threshold' => 20));
 
-            //Updating the advocate currency
-            $arrParams = array('currency_code' => 'USD');
-            $objResponse = $this->objGeniusReferralsAPIClient->patchAdvocate($this->strAccount, $strAdvocateToken, $arrParams);
-            $intResponseCode1 = $this->objGeniusReferralsAPIClient->getResponseCode();
+            $objResponse = $this->objGeniusReferralsAPIClient->postAdvocate($this->strAccount, $strAdvocateData);
+            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
-            if ($intResponseCode1 == '204') {
-                $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate($this->strAccount, $strAdvocateToken);
-                $objAdvocate = json_decode($objAdvocate);
-                return $this->success($objAdvocate->data);
+            if ($intResponseCode == '201') {
+                //getting the advocate token from the Location header
+                $arrLocation = $objResponse->getHeader('Location')->raw();
+                $strLocation = $arrLocation[0];
+                $arrParts = explode('/', $strLocation);
+                $strAdvocateToken = end($arrParts);
+
+                //Updating the advocate currency
+                $arrParams = array('currency_code' => 'USD');
+                $objResponse = $this->objGeniusReferralsAPIClient->patchAdvocate($this->strAccount, $strAdvocateToken, $arrParams);
+                $intResponseCode1 = $this->objGeniusReferralsAPIClient->getResponseCode();
+
+                if ($intResponseCode1 == '204') {
+                    $objAdvocate = $this->objGeniusReferralsAPIClient->getAdvocate($this->strAccount, $strAdvocateToken);
+                    $objAdvocate = json_decode($objAdvocate);
+                    return $this->success($objAdvocate->data);
+                }
             }
+        } else {
+            return $this->failure('The email of advocate must be unique.');
         }
     }
 
@@ -100,26 +109,22 @@ class manage_advocate_ajax {
      */
     public function searchAdvocates($data) {
 
-        try {
-            if (!empty($data['name'])) {
-                $arrFilter[] = "name::" . $data['name'];
-            }
-            if (!empty($data['lastname'])) {
-                $arrFilter[] = "lastname::" . $data['last_name'];
-            }
-            if (!empty($data['email'])) {
-                $arrFilter[] = "email::" . $data['email'];
-            }
-            if (!empty($arrFilter)) {
-                $filters = implode('|', $arrFilter);
-            }
-
-            $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
-            $arrAdvocate = json_decode($arrAdvocate);
-            return $this->success($arrAdvocate->data);
-        } catch (Exception $exc) {
-            echo $exc->getMessage();
+        if (!empty($data['name'])) {
+            $arrFilter[] = "name::" . $data['name'];
         }
+        if (!empty($data['lastname'])) {
+            $arrFilter[] = "lastname::" . $data['last_name'];
+        }
+        if (!empty($data['email'])) {
+            $arrFilter[] = "email::" . $data['email'];
+        }
+        if (!empty($arrFilter)) {
+            $filters = implode('|', $arrFilter);
+        }
+
+        $arrAdvocate = $this->objGeniusReferralsAPIClient->getAdvocates($this->strAccount, 1, 50, $filters);
+        $arrAdvocate = json_decode($arrAdvocate);
+        return $this->success($arrAdvocate->data);
     }
 
     /**
@@ -278,8 +283,6 @@ class manage_advocate_ajax {
                         'message' => $objCheckup->data->message,
                         'trace' => isset($objCheckup->data->trace) ? $objCheckup->data->trace : array()
             ));
-        } else {
-            return $this->success(array('status' => 'Fail'));
         }
     }
 

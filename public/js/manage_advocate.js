@@ -32,7 +32,7 @@ $(document).ready(function() {
                 last_name: $('#last_name').val(),
                 email: $('#email').val()
             };
-            var stepRequest = $.ajax({
+            var request = $.ajax({
                 url: 'ajax/manage_advocate_ajax.php?method=createAdvocate',
                 data: {'data': data},
                 type: 'POST',
@@ -42,11 +42,29 @@ $(document).ready(function() {
                     $('#btn1_new_advocate').addClass('btn-info');
                 }
             });
-            stepRequest.done(function(data) {
+            request.done(function(data) {
                 var data = jQuery.parseJSON(data);
-                if (data.success) {
+                if (data.success == true)
                     window.location = 'index.php';
+                else if (data.success == false)
+                {
+                    $('#no_result_found').hide();
+                    $('#unknow_error').hide();
+                    $('#unique_email_advocate').show();
+
+                    $('#btn1_new_advocate').button('reset');
+                    $('#btn1_new_advocate').removeClass('btn-info');
+                    $('#btn1_new_advocate').addClass('btn-primary');
                 }
+            });
+            request.fail(function(data) {
+                $('#no_result_found').hide();
+                $('#unknow_error').show();
+                $('#unique_email_advocate').hide();
+
+                $('#btn1_new_advocate').button('reset');
+                $('#btn1_new_advocate').removeClass('btn-info');
+                $('#btn1_new_advocate').addClass('btn-primary');
             });
         }
     });
@@ -64,7 +82,7 @@ $(document).ready(function() {
                     last_name: $('#inputLastname').val(),
                     email: $('#inputEmail').val()
                 };
-                var stepRequest = $.ajax({
+                var request = $.ajax({
                     url: 'ajax/manage_advocate_ajax.php?method=searchAdvocates',
                     data: {'data': data},
                     type: 'POST',
@@ -79,7 +97,7 @@ $(document).ready(function() {
                         $('#btn_search_advocate').addClass('btn-primary');
                     }
                 });
-                stepRequest.done(function(data) {
+                request.done(function(data) {
                     var data = jQuery.parseJSON(data);
                     $('#table_advocate td').remove();
                     if (data.message.total != 0)
@@ -111,18 +129,21 @@ $(document).ready(function() {
 
                         $('#no_result_found').hide();
                         $('#unknow_error').hide();
+                        $('#unique_email_advocate').hide();
                     }
                     else
                     {
                         $('#no_result_found').show();
                         $('#unknow_error').hide();
+                        $('#unique_email_advocate').hide();
                     }
 
                     $('.pagination').remove();
                 });
-                stepRequest.fail(function(data) {
+                request.fail(function(data) {
                     $('#no_result_found').hide();
                     $('#unknow_error').show();
+                    $('#unique_email_advocate').hide();
 
                     $('.pagination').remove();
                 });
@@ -164,13 +185,13 @@ function validateSearchAdvocate()
  */
 function createReferral(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'create_referral.php',
         data: {'advocate_token': advocate_token}
     });
     $('#createReferralModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#createReferralModal').html(response);
         }
@@ -182,13 +203,13 @@ function createReferral(advocate_token)
  */
 function checkupBonus(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'checkup_bonus.php',
         data: {'advocate_token': advocate_token}
     });
     $('#checkupBonusModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#checkupBonusModal').html(response);
             $('#checkupBonusModal').html(response);
@@ -206,13 +227,13 @@ function checkupBonus(advocate_token)
  */
 function processBonus(advocate_token)
 {
-    var stepRequest = $.ajax({
+    var request = $.ajax({
         type: "GET",
         url: 'process_bonus.php',
         data: {'advocate_token': advocate_token}
     });
     $('#processBonusModal').modal('show');
-    stepRequest.done(function(response) {
+    request.done(function(response) {
         if (response) {
             $('#processBonusModal').html(response);
             $('#processBonusModal #reference').val('');
