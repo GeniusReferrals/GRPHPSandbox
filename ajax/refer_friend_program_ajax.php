@@ -75,46 +75,42 @@ class refer_friend_program_ajax {
         $strPaypalDescription = $data['paypal_description'];
         $boolPaypalActive = $data['paypal_is_active'];
 
-        try {
-            if (!empty($_SESSION['advocate_token'])) {
+        if (!empty($_SESSION['advocate_token'])) {
 
-                $strGRAdvocateToken = $_SESSION['advocate_token'];
+            $strGRAdvocateToken = $_SESSION['advocate_token'];
 
-                if ($boolPaypalActive === '1') {
+            if ($boolPaypalActive === '1') {
 
-                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
-                    $arrPaymentMethodsTrue = json_decode($response);
+                $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
+                $arrPaymentMethodsTrue = json_decode($response);
 
-                    if (!empty($arrPaymentMethodsTrue->data->results)) {
-                        foreach ($arrPaymentMethodsTrue->data->results as $obj) {
-                            $aryPaymentMethodData = array('advocate_payment_method' => array(
-                                    'username' => $obj->username,
-                                    'description' => $obj->description));
-                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
-                        }
+                if (!empty($arrPaymentMethodsTrue->data->results)) {
+                    foreach ($arrPaymentMethodsTrue->data->results as $obj) {
+                        $aryPaymentMethodData = array('advocate_payment_method' => array(
+                                'username' => $obj->username,
+                                'description' => $obj->description));
+                        $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
                     }
                 }
-                if ($boolPaypalActive === '1') {
-                    $aryPaymentMethodData = array('advocate_payment_method' => array(
-                            'username' => $strPaypalUsername,
-                            'description' => $strPaypalDescription,
-                            'is_active' => true));
-                } else {
-                    $aryPaymentMethodData = array('advocate_payment_method' => array(
-                            'username' => $strPaypalUsername,
-                            'description' => $strPaypalDescription));
-                }
-                $objResponse = $this->objGeniusReferralsAPIClient->postAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $aryPaymentMethodData);
-                $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
-
-                if ($intResponseCode == '201') {
-                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
-                    $aryPaymentMethods = json_decode($aryPaymentMethods);
-                    return $this->success($aryPaymentMethods->data->results);
-                }
             }
-        } catch (Exception $exc) {
-            $this->failure($exc->getMessage());
+            if ($boolPaypalActive === '1') {
+                $aryPaymentMethodData = array('advocate_payment_method' => array(
+                        'username' => $strPaypalUsername,
+                        'description' => $strPaypalDescription,
+                        'is_active' => true));
+            } else {
+                $aryPaymentMethodData = array('advocate_payment_method' => array(
+                        'username' => $strPaypalUsername,
+                        'description' => $strPaypalDescription));
+            }
+            $objResponse = $this->objGeniusReferralsAPIClient->postAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $aryPaymentMethodData);
+            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+
+            if ($intResponseCode == '201') {
+                $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
+                $aryPaymentMethods = json_decode($aryPaymentMethods);
+                return $this->success($aryPaymentMethods->data->results);
+            }
         }
     }
 
@@ -130,45 +126,41 @@ class refer_friend_program_ajax {
         $boolPaypalActive = $data['is_active'];
         $intPaymentMethodId = $data['payment_method_id'];
 
-        try {
-            if (!empty($_SESSION['advocate_token'])) {
+        if (!empty($_SESSION['advocate_token'])) {
 
-                $strGRAdvocateToken = $_SESSION['advocate_token'];
+            $strGRAdvocateToken = $_SESSION['advocate_token'];
 
-                if ($boolPaypalActive === '1') {
-                    $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
-                    $arrPaymentMethodsTrue = json_decode($response);
+            if ($boolPaypalActive === '1') {
+                $response = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50, 'is_active::true');
+                $arrPaymentMethodsTrue = json_decode($response);
 
-                    if (!empty($arrPaymentMethodsTrue->data->results)) {
-                        foreach ($arrPaymentMethodsTrue->data->results as $obj) {
-                            $aryPaymentMethodData = array('advocate_payment_method' => array(
-                                    'username' => $obj->username,
-                                    'description' => $obj->description));
-                            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
-                        }
+                if (!empty($arrPaymentMethodsTrue->data->results)) {
+                    foreach ($arrPaymentMethodsTrue->data->results as $obj) {
+                        $aryPaymentMethodData = array('advocate_payment_method' => array(
+                                'username' => $obj->username,
+                                'description' => $obj->description));
+                        $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $obj->id, $aryPaymentMethodData);
                     }
                 }
-                if ($boolPaypalActive === '1') {
-                    $aryPaymentMethodData = array('advocate_payment_method' => array(
-                            'username' => $strPaypalUsername,
-                            'description' => $strPaypalDescription,
-                            'is_active' => true));
-                } else {
-                    $aryPaymentMethodData = array('advocate_payment_method' => array(
-                            'username' => $strPaypalUsername,
-                            'description' => $strPaypalDescription));
-                }
-                $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $intPaymentMethodId, $aryPaymentMethodData);
-                $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
-
-                if ($intResponseCode == '204') {
-                    $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
-                    $aryPaymentMethods = json_decode($aryPaymentMethods);
-                    return $this->success($aryPaymentMethods->data->results);
-                }
             }
-        } catch (Exception $exc) {
-            $this->failure($exc->getMessage());
+            if ($boolPaypalActive === '1') {
+                $aryPaymentMethodData = array('advocate_payment_method' => array(
+                        'username' => $strPaypalUsername,
+                        'description' => $strPaypalDescription,
+                        'is_active' => true));
+            } else {
+                $aryPaymentMethodData = array('advocate_payment_method' => array(
+                        'username' => $strPaypalUsername,
+                        'description' => $strPaypalDescription));
+            }
+            $this->objGeniusReferralsAPIClient->putAdvocatePaymentMethod($this->strAccount, $strGRAdvocateToken, $intPaymentMethodId, $aryPaymentMethodData);
+            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+
+            if ($intResponseCode == '204') {
+                $aryPaymentMethods = $this->objGeniusReferralsAPIClient->getAdvocatePaymentMethods($this->strAccount, $strGRAdvocateToken, 1, 50);
+                $aryPaymentMethods = json_decode($aryPaymentMethods);
+                return $this->success($aryPaymentMethods->data->results);
+            }
         }
     }
 
@@ -207,23 +199,19 @@ class refer_friend_program_ajax {
             ));
         }
 
-        try {
-            $objResponse = $this->objGeniusReferralsAPIClient->postRedemptionRequest($this->strAccount, $arrRedemptionRequest);
-            $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
+        $objResponse = $this->objGeniusReferralsAPIClient->postRedemptionRequest($this->strAccount, $arrRedemptionRequest);
+        $intResponseCode = $this->objGeniusReferralsAPIClient->getResponseCode();
 
-            if ($intResponseCode == '201') {
+        if ($intResponseCode == '201') {
 
-                $arrLocation = $objResponse->getHeader('Location')->raw();
-                $strLocation = $arrLocation[0];
-                $arrParts = explode('/', $strLocation);
-                $intRedemptionRequestId = end($arrParts);
+            $arrLocation = $objResponse->getHeader('Location')->raw();
+            $strLocation = $arrLocation[0];
+            $arrParts = explode('/', $strLocation);
+            $intRedemptionRequestId = end($arrParts);
 
-                $objRedemptionRequest = $this->objGeniusReferralsAPIClient->getRedemptionRequest($this->strAccount, $intRedemptionRequestId);
-                $objRedemptionRequest = json_decode($objRedemptionRequest);
-                return $this->success($objRedemptionRequest->data);
-            }
-        } catch (Exception $exc) {
-            $this->failure($exc->getMessage());
+            $objRedemptionRequest = $this->objGeniusReferralsAPIClient->getRedemptionRequest($this->strAccount, $intRedemptionRequestId);
+            $objRedemptionRequest = json_decode($objRedemptionRequest);
+            return $this->success($objRedemptionRequest->data);
         }
     }
 
