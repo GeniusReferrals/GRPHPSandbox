@@ -62,19 +62,18 @@ $(document).ready(function() {
             request.done(function(data) {
                 var data = jQuery.parseJSON(data);
                 if (data.success) {
-                    $.each(data.message, function(i, elem) {
-                        row_redemption = $('<tr>' +
-                                '<td>' + dateFormat(new Date(elem.created), "mediumDate") + '</td>' +
-                                '<td>' + elem.amount + '</td>' +
-                                '<td> Referral </td>' +
-                                '<td>' + elem._advocate.name + '</td>' +
-                                '<td>' + elem.request_status_slug + '</td>' +
-                                '<td>' + elem.request_action_slug + '</td>' +
-                                '</tr>');
-                        $('#table_redemption').append(row_redemption);
-                    });
+                    row_redemption = $('<tr>' +
+                            '<td>' + dateFormat(new Date(data.message.created), "mediumDate") + '</td>' +
+                            '<td>' + data.message.amount + '</td>' +
+                            '<td> Referral </td>' +
+                            '<td>' + data.message._advocate.name + '</td>' +
+                            '<td>' + data.message.request_status_slug + '</td>' +
+                            '<td>' + data.message.request_action_slug + '</td>' +
+                            '</tr>');
+                    $('#table_redemption').append(row_redemption);
+
                     $('#amount_redeem').val('');
-                    $('#redemption_type').val();
+                    document.getElementById('redemption_type').selectedIndex = 0;
                     document.getElementById('paypal_account').selectedIndex = 0;
                 }
             });
