@@ -58,23 +58,23 @@ The app has 2 pages to show all the integration process:
 
 ### 1- Manage advocate, where you can do the following:
 
-1- List advocate
-2- Search advocate
-3- Create advocate
+- List advocate
+- Search advocate
+- Create advocate
 
 Per advocate you can to the following:
 
-1- Refer a friend program
-2- Create referrer
-3- Process bonus
-4- Checkup bonus
+- Refer a friend program
+- Create referrer
+- Process bonus
+- Checkup bonus
 
 ### 2- Refer a friend program (4 tabs)
 
-1- Overview
-2- Referral tools
-3- Bonuses earned
-4- Redeem bonuses
+- Overview
+- Referral tools
+- Bonuses earned
+- Redeem bonuses
 
 
 To report issues use [Github issue tracker.](https://github.com/GeniusReferrals/GRPHPSandbox/issues)
