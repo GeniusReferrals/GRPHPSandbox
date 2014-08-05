@@ -3,7 +3,7 @@ GRPHPSandbox
 In English
 -----------
 
-GRPHPSandbox is an example application developed in PHP that can be used as a guide during the integration process by the Genius Referrals platform clients. This is an example app and should not be deployed on a production server as it is by default.
+GRPHPSandbox is a sample application developed in PHP that can be used as a guide during the integration process by the Genius Referrals platform clients. This is a sample app and should not be deployed on a production server as it is by default.
 
 Genius Referrals is a referral marketing platform and word of mouth platform that allows any company/person with a Website to increase his costumer acquisition by using word of mouth techniques thought Facebook, Twitter, Google +, Pinterest, Linkedin, Email and personal recommendations. For more information about Genius referrals please visit www.geniusreferrals.com.
 
