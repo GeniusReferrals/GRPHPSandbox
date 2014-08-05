@@ -8,10 +8,10 @@ Instalation:
 
 The installation process of this application is very simple and can be done in several ways.
 
-# 1- First download the zip of the application using this link [GRPHPSandbox](https://github.com/GeniusReferrals/GRPHPSandbox/archive/master.zip), 
+## 1- First download the zip of the application using this link [GRPHPSandbox](https://github.com/GeniusReferrals/GRPHPSandbox/archive/master.zip), 
 unzip the package and keep it within your web server. 
 
-# 2- Install vendor GRAPIPHPClient with it's dependencies, needed for the GRPHPSandbox app development.
+## 2- Install vendor GRAPIPHPClient with it's dependencies, needed for the GRPHPSandbox app development.
 
 ### Using Composer
 
