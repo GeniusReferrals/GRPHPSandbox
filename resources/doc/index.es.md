@@ -58,23 +58,23 @@ La aplicación consta de 2 páginas que se describen a continuación:
 
 ### 1- Manage advocate, en la cual se pueden realizar las siguientes funcionalidades:
 
-1- List advocate: Listar los promotores 
-2- Search advocate: Buscar promotores
-3- Create advocate: Crear nuevos promotores
+- List advocate: Listar los promotores 
+- Search advocate: Buscar promotores
+- Create advocate: Crear nuevos promotores
 
 Por cada promotor (advocate) se pueden realizar las siguientes funcionalidades:
 
-1- Refer friends: Referir amigos
-2- Create referrer: Adicionar el referente al promotor
-3- Process bonus: Procesar bonos
-4- Checkup bonus: Chequer nuevos bonos
+- Refer friends: Referir amigos
+- Create referrer: Adicionar el referente al promotor
+- Process bonus: Procesar bonos
+- Checkup bonus: Chequer nuevos bonos
 
 ### 2- Programa de referencia de amigos (Refer a friend program) (Consta de 4 tabs)
 
-1- Overview: Resumen del programa de referencia
-2- Referral tools: Herramientas para referir
-3- Bonuses earned: Bonificaciones optenidas
-4- Redeem bonuses: Canjear bonificaciones
+- Overview: Resumen del programa de referencia
+- Referral tools: Herramientas para referir
+- Bonuses earned: Bonificaciones optenidas
+- Redeem bonuses: Canjear bonificaciones
 
 
 Para reportar un problema utilice [Github issue tracker.](https://github.com/GeniusReferrals/GRPHPSandbox/issues)
