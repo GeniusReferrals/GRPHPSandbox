@@ -1,13 +1,12 @@
 Descripción:
 ------------
 
-Genius Referrals en un intento de mejorar el proceso de integración con sus servicios ha creado esta aplicación GRPHPSandbox.
-La cual permite a sus clientes, a través de PHP, mostrarle a los clientes el proceso de integración con la plataforma de GR en una aplicación de ejemplo.
+Genius Referrals en un intento de mejorar el proceso de integración con sus servicios ha creado esta aplicación GRPHPSandbox. La cual permite, a través de PHP, mostrarle a los clientes el proceso de integración con la plataforma de GR en una aplicación de ejemplo.
 
 Instalación:
 ------------
 
-El proceso de instalación de esta aplicación GRPHPSandbox es muy sencillo y puede hacerse de varias formas.
+El proceso de instalación de esta aplicación es muy sencillo y puede hacerse de varias formas.
 
 # 1- Primeramente descargue el zip de la aplicación usando este vínculo [GRPHPSandbox](https://github.com/GeniusReferrals/GRPHPSandbox/archive/master.zip), 
 unzip el paquete y guardelo dentro de su servidor web.
@@ -37,6 +36,7 @@ php composer.phar require geniusreferrals/gr-api-php-client:dev-master
 #### 1- Clonar el repositorio 
 
 Si usted no quiere usar composer, puede instalar el paquete clonando el repositorio. 
+
 ```cd``` en la carpeta donde quiere clonar el paquete y ejecute: 
 
 ```
@@ -56,25 +56,25 @@ Estructura de la aplicación
 
 La aplicación consta de 2 páginas que se describen a continuación:
 
-### 1- Manage advocate, en la cual se pueden realizar las siguientes funcionalidades::
+### 1- Manage advocate, en la cual se pueden realizar las siguientes funcionalidades:
 
-1- List advocate
-2- Search advocate
-3- Create advocate
+1- List advocate: Listar los promotores 
+2- Search advocate: Buscar promotores
+3- Create advocate: Crear nuevos promotores
 
-Por cada advocate se pueden realizar las siguientes funcionalidades:
+Por cada promotor (advocate) se pueden realizar las siguientes funcionalidades:
 
-1- Refer a friend program
-2- Create referrer
-3- Process bonus
-4- Checkup bonus
+1- Refer friends: Referir amigos
+2- Create referrer: Adicionar el referente al promotor
+3- Process bonus: Procesar bonos
+4- Checkup bonus: Chequer nuevos bonos
 
-### 2- Refer a friend program (Consta de 4 tabs)
+### 2- Programa de referencia de amigos (Refer a friend program) (Consta de 4 tabs)
 
-1- Overview
-2- Referral tools
-3- Bonuses earned
-4- Redeem bonuses
+1- Overview: Resumen del programa de referencia
+2- Referral tools: Herramientas para referir
+3- Bonuses earned: Bonificaciones optenidas
+4- Redeem bonuses: Canjear bonificaciones
 
 
 Para reportar un problema utilice [Github issue tracker.](https://github.com/GeniusReferrals/GRPHPSandbox/issues)
