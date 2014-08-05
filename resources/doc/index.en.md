@@ -1,4 +1,4 @@
-Description
+Description:
 --------------
 
 Genius Referrals in an attempt to improve the integration process with its services has created the GRPHPSandbox application. Which allows, through PHP, to show customers the integration process with the Genius Referrals platform in a sample application.
