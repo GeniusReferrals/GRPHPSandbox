@@ -41,11 +41,6 @@ if (file_exists(__DIR__ . '/config/config.php')) {
                             <img src="public/images/social/linkedin.png" class="img-rounded">
                         </a>
                     </div>
-                    <!--<div class="col-xs-2 col-sm-1">
-                        <a href="https://<?php //echo isset($arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'pin-it'}) ? $arrAdvocatesShareLinks->{$strCampaign}->{$strWidgetsPackage}->{'pin-it'} : '' ?>">
-                            <img src="public/images/social/pinterest.png" class="img-rounded">
-                        </a>
-                    </div>-->
                     <div style="clear: both;"></div>
                 </div>
             </div>
