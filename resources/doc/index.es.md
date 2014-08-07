@@ -64,7 +64,7 @@ La aplicación consta de 2 páginas que se describen a continuación:
 
 Por cada promotor (advocate) se pueden realizar las siguientes funcionalidades:
 
-- Refer friends: Referir amigos
+- Refer a friend program: Referir amigos
 - Create referrer: Adicionar el referente al promotor
 - Process bonus: Procesar bonos
 - Checkup bonus: Chequer nuevos bonos
